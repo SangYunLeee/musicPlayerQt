@@ -1,5 +1,6 @@
 #include "music.h"
 #include <boost/thread.hpp>
+#include<QDebug>
 
 Music::Music(QObject *parent) : QObject(parent)
   ,m_author("author"),m_titles("title")
@@ -15,7 +16,6 @@ Music::Music(QString author, QString title, QString url, QObject *parent) : QObj
 
 QString Music::author() const
 {
-
     return m_author;
 }
 
@@ -27,7 +27,6 @@ void Music::setAuthor(const QString &author)
 
 QString Music::titles() const
 {
-
     return m_titles;
 }
 
@@ -50,7 +49,6 @@ void Music::setUrl(const QString &url)
 
 void Music::testSetTitle()
 {
-
     m_author = "chenged";
     emit authorChanged();
 }

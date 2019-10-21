@@ -36,7 +36,6 @@ signals:
     void titlesChanged();
     void authorChanged();
 
-
 public slots:
     void testSetTitle();
 };

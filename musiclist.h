@@ -6,14 +6,12 @@
 #include <QVariant>
 #include <QUrl>
 #include <QDirIterator>
-//#include <tag.h>
-//#include <fileref.h>
-//#include <mpegfile.h>
-//#include <id3v2tag.h>
-//#include <textidentificationframe.h>
-//#include <QDebug>
-//#include <QImage>
-//#include <attachedpictureframe.h>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+
+#include <tag.h>
+#include <fileref.h>
+
 class MusicList : public QObject
 {
     Q_OBJECT
@@ -33,6 +31,9 @@ public:
     QVariant inputList() const;
     void setInputList(const QVariant &inputList);
 
+    QMediaPlaylist playList() const;
+    void setPlayList(const QMediaPlaylist &playList);
+
 signals:
     void urlChanged();
     void convertedMusicListChanged();
@@ -47,6 +48,8 @@ private:
     QString m_url;
     QList<QObject*> m_convertedMusicList;
     QVariant m_inputList;
+    QMediaPlayer mediaPlayer;
+    QMediaPlaylist m_playList;
 };
 
 #endif // MUSICLIST_H

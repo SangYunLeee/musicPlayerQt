@@ -1,5 +1,11 @@
 #include "musiclist.h"
 #include <qmediaplayer.h>
+#include <QtMultimedia>
+#include <QMediaMetaData>
+#include <QMediaContent>
+#include <id3v2tag.h>
+#include <attachedpictureframe.h>
+
 
 static QString imageFilePath = "imageForMusic";
 
@@ -31,38 +37,59 @@ void MusicList::setConvertedMusicList(const QList<QObject *> &convertedMusicList
 
 QString MusicList::inputMusicList(const QUrl &ListUrl)
 {
-    m_url = ListUrl.toString();
+
+    m_url = ListUrl.path();
+    m_url = m_url.remove(0,1);
 
     //make list empty
     for(auto* music : m_convertedMusicList){
         delete music;
-        m_convertedMusicList.pop_back();
     }
+    m_convertedMusicList.clear();
+
+    qDebug() << m_url;
 
     //add MusicList
     //filtering Mp3
     QStringList filter;
     filter << "*.mp3";
-    QDirIterator it(m_url.replace(0,7,""), filter, QDir::AllEntries | QDir::NoSymLinks | QDir::NoDotAndDotDot);
+    QDirIterator it(m_url, filter, QDir::AllEntries | QDir::NoSymLinks | QDir::Files);
 
-
-        //if mp3 exists, make dir
-        if(it.hasNext()) {
-            QDir dir(m_url.remove("file://") +"/");
-            dir.mkdir("imageForMusic");
+    //if mp3 exists, make dir
+    if(it.hasNext()) {
+        QDir dir(m_url+"/imageForMusic");
+        if(false == dir.exists()){
+            dir.mkdir("../imageForMusic");
         }
+    }
+
     //input string to files
     QStringList files;
-    while (it.hasNext())
+    while (it.hasNext()){
+//        qDebug() <<  it.filePath();
         files << it.next();
+    }
 
-    for(auto url : files){   // url : "/home/sori/Desktop/qtProject/musicPlayer/image/054 마크툽 (MAKTUB), 구윤회 - Marry Me.mp3"
-        //insert!!
-//        TagLib::FileRef ref(url.toStdString().c_str());
-//        QString artist = ref.tag()->artist().toCString(true);
-//        QString title = ref.tag()->title().toCString(true);
-//        m_convertedMusicList.append(new Music(artist,title,url));
-//        qDebug() <<  "arty: " << url;
+    std::string str = "D:/정정.mp3";
+
+
+    QUrl qqurl = QUrl("D:/정정.mp3");
+
+    mediaPlayer.setMedia(qqurl);
+    mediaPlayer.play();
+
+    for(QString url : files){
+        qDebug() << "auto url:" << url;
+
+//        //insert!!
+        TagLib::FileName fn(url.toStdWString().c_str());
+        TagLib::FileRef ref(fn);
+
+        QString artist = ref.tag()->artist().toCString(true);
+        QString title = ref.tag()->title().toCString(true);
+        m_convertedMusicList.append(new Music(artist,title,url));
+        qDebug() << "artist: " << artist;
+        qDebug() << "title : " << title;
     }
     emit inputListChanged();
 
@@ -72,7 +99,7 @@ QString MusicList::inputMusicList(const QUrl &ListUrl)
 QString MusicList::setImageFile(QString url)  // url : "/home/sori/Desktop/qtProject/musicPlayer/image/054 마크툽 (MAKTUB), 구윤회 - Marry Me.mp3"
 {
     //make ImageFIle
-/*
+
     QString filepath = url;
     TagLib::FileRef file (filepath.toLocal8Bit().data());
     TagLib::ID3v2::Tag tag(file.file(), 0);
@@ -91,8 +118,7 @@ QString MusicList::setImageFile(QString url)  // url : "/home/sori/Desktop/qtPro
     qDebug() <<  "path: " <<
     image.save( path , "JPEG");
     return "file://"+path;
-    */
-    return "aa";
+
 }
 
 QVariant MusicList::inputList() const
