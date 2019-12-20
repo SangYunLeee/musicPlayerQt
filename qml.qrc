@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>TimerPrograssBar.qml</file>
+        <file>PrograssBar.qml</file>
+        <file>PlayListView.qml</file>
+        <file>MyRow.qml</file>
+        <file>MyColumn.qml</file>
+        <file>MyButton.qml</file>
+        <file>FolderDialog.qml</file>
+        <file>define.js</file>
+        <file>ScrollBarListView.qml</file>
+    </qresource>
+</RCC>
