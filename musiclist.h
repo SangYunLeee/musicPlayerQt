@@ -34,6 +34,9 @@ public:
     QMediaPlaylist playList() const;
     void setPlayList(const QMediaPlaylist &playList);
 
+private:
+    void clearLlst();
+
 signals:
     void urlChanged();
     void convertedMusicListChanged();

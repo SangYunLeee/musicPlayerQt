@@ -37,15 +37,10 @@ void MusicList::setConvertedMusicList(const QList<QObject *> &convertedMusicList
 
 QString MusicList::inputMusicList(const QUrl &ListUrl)
 {
+    clearLlst();
 
     m_url = ListUrl.path();
     m_url = m_url.remove(0,1);
-
-    //make list empty
-    for(auto* music : m_convertedMusicList){
-        delete music;
-    }
-    m_convertedMusicList.clear();
 
     qDebug() << m_url;
 
@@ -58,8 +53,10 @@ QString MusicList::inputMusicList(const QUrl &ListUrl)
     //if mp3 exists, make dir
     if(it.hasNext()) {
         QDir dir(m_url+"/imageForMusic");
-        if(false == dir.exists()){
-            dir.mkdir("../imageForMusic");
+        if (false == dir.exists())
+        {
+            QDir directory(m_url);
+            dir.mkdir("imageForMusic");
         }
     }
 
@@ -70,13 +67,8 @@ QString MusicList::inputMusicList(const QUrl &ListUrl)
         files << it.next();
     }
 
-    std::string str = "D:/정정.mp3";
-
-
-    QUrl qqurl = QUrl("D:/정정.mp3");
-
-    mediaPlayer.setMedia(qqurl);
-    mediaPlayer.play();
+//    mediaPlayer.setMedia(qqurl);
+//    mediaPlayer.play();
 
     for(QString url : files){
         qDebug() << "auto url:" << url;
@@ -98,10 +90,18 @@ QString MusicList::inputMusicList(const QUrl &ListUrl)
 
 QString MusicList::setImageFile(QString url)  // url : "/home/sori/Desktop/qtProject/musicPlayer/image/054 마크툽 (MAKTUB), 구윤회 - Marry Me.mp3"
 {
-    //make ImageFIle
+    QString path = url;
+    path.insert(url.lastIndexOf("/"),"/"+imageFilePath)+".jpeg";
 
-    QString filepath = url;
-    TagLib::FileRef file (filepath.toLocal8Bit().data());
+    QFile qFile(path);
+    if(qFile.exists())
+    {
+        qDebug() << "file is exist";
+        return "file:///"+path;
+    }
+
+    //make ImageFIle
+    TagLib::FileRef file (url.toLocal8Bit().data());
     TagLib::ID3v2::Tag tag(file.file(), 0);
 
     TagLib::ID3v2::FrameList listOfMp3Frames = tag.frameListMap()["APIC"];
@@ -114,10 +114,9 @@ QString MusicList::setImageFile(QString url)  // url : "/home/sori/Desktop/qtPro
 
     QImage image;
     image = QImage::fromData((const uchar*)data1.data(), data1.size());
-    QString path = url.insert(url.lastIndexOf("/"),"/"+imageFilePath)+".jpeg" ;
-    qDebug() <<  "path: " <<
+    qDebug() <<  "path: " << path;
     image.save( path , "JPEG");
-    return "file://"+path;
+    return "file:///"+path;
 
 }
 
@@ -129,5 +128,14 @@ QVariant MusicList::inputList() const
 void MusicList::setInputList(const QVariant &inputList)
 {
     m_inputList = inputList;
+}
+
+void MusicList::clearLlst()
+{
+    //make list empty
+    for(auto* music : m_convertedMusicList){
+        delete music;
+    }
+    m_convertedMusicList.clear();
 }
 
