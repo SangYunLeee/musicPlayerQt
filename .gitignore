@@ -16,7 +16,7 @@
 !*.h
 !*pro
 *.o
-*debug*
+*debug
 # A listing of all the files included in the project
 *.files
 
