@@ -59,7 +59,7 @@ Window {
                     Text{
                         width: 180
                         id: titleId
-                        text: "artist"
+                        text: listViewId.listId.currentItem.model.titles
                         horizontalAlignment: Text.AlignHCenter
                         color: "Tomato"
                         font.pointSize: 15
@@ -204,16 +204,17 @@ Window {
         playMusic.play();
         startBtnId.source = "pause.svg";
         startBtnId.start = true;
-        imageId.source = CppMusicList.setImageFile(url);
+        imageId.source = cppMusicList.setImageFile(url);
     }
     FolderDialog {
         id: folderDialogId
         onAccepted: {
             path =  folderDialogId.folder.toString() + "/"
-            CppMusicList.inputMusicList(folderDialogId.folder);
-            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author
-                            ,listViewId.listId.model[listViewId.listId.currentIndex].titles
-                            ,listViewId.listId.model[listViewId.listId.currentIndex].url);
+            cppMusicController.loadMusicList(folder);
+//            cppMusicList.inputMusicList(folderDialogId.folder);
+//            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author
+//                            ,listViewId.listId.model[listViewId.listId.currentIndex].titles
+//                            ,listViewId.listId.model[listViewId.listId.currentIndex].url);
             print(path);
 
 
@@ -240,7 +241,7 @@ Window {
 
     }
 //    Component.onCompleted:{
-//        CppMusicList.inputMusicList(path);
+//        cppMusicList.inputMusicList(path);
 //        if(listViewId.listId.count >= 1)
 //            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url);
 //    }

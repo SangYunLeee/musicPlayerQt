@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "music.h"
 #include "musiclist.h"
+#include <musiccontroller.h>
 
 int main(int argc, char *argv[])
 {
@@ -14,7 +15,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    engine.rootContext()->setContextProperty("CppMusicList", new MusicList());
+    MusicController* musicController = new MusicController();
+    engine.rootContext()->setContextProperty("cppMusicController", musicController);
+    engine.rootContext()->setContextProperty("cppMusicList", musicController->musicList());
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

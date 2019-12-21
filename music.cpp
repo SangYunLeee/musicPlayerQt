@@ -1,5 +1,4 @@
 #include "music.h"
-#include <boost/thread.hpp>
 #include<QDebug>
 
 Music::Music(QObject *parent) : QObject(parent)

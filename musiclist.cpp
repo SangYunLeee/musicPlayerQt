@@ -4,7 +4,7 @@
 #include <QMediaMetaData>
 #include <QMediaContent>
 #include <id3v2tag.h>
-#include <attachedpictureframe.h>
+#include <frames/attachedpictureframe.h>
 
 
 static QString imageFilePath = "imageForMusic";

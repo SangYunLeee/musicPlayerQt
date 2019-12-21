@@ -1,5 +1,6 @@
 release/main.o
 release/music.o
+release/musiccontroller.o
 release/musiclist.o
 release/listofcolor.o
 release/apefile.o
@@ -101,5 +102,6 @@ release/tagunion.o
 release/qrc_qml.o
 release/qrc_image.o
 release/moc_music.o
+release/moc_musiccontroller.o
 release/moc_musiclist.o
 release/moc_listofcolor.o

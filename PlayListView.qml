@@ -43,7 +43,7 @@ Item {
             width: rootId.width
             height: parent.height - titleId.height
             delegate: delegateId
-            model: CppMusicList.inputList
+            model: cppMusicList.inputList
             highlight: Rectangle{
                 color: "red"
                 width: 20
@@ -89,6 +89,7 @@ Item {
             height: listViewId.height / 13
             border.color: listViewId.currentIndex == index ? Define.YELLOW : "#B9E4C9";
             border.width: 0.6
+            property variant myData: model
             Text {
                 id: textId
                 anchors.centerIn: parent

@@ -17,6 +17,10 @@
 !*pro
 *.o
 *debug
+*userskkk*
+*pro.user*
+*Makefile*
+*.opt
 # A listing of all the files included in the project
 *.files
 

@@ -35,6 +35,7 @@ LIBS += -LD:/boost_1_70_0/stage/lib/
 SOURCES += \
         main.cpp \
         music.cpp \
+        musiccontroller.cpp \
         musiclist.cpp \
         listofcolor.cpp
 
@@ -54,11 +55,16 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     music.h \
+    musiccontroller.h \
     musiclist.h \
     listofcolor.h
 
 #INCLUDEPATH += $$PWD/../../../Libraries/taglib-1.11.1/taglib
 #DEPENDPATH += $$PWD/../../../Libraries/taglib-1.11.1/taglib
+
+contains(DEFINES,NOT_BUILD ){
+
+}
 
 
 
@@ -99,7 +105,7 @@ INCLUDEPATH += taglib/mpc
 INCLUDEPATH += taglib/mpeg
 INCLUDEPATH += taglib/mpeg/id3v1
 INCLUDEPATH += taglib/mpeg/id3v2
-INCLUDEPATH += taglib/mpeg/id3v2/frames
+INCLUDEPATH += taglib/mpeg/id3v2/framesR
 INCLUDEPATH += taglib/ogg
 INCLUDEPATH += taglib/ogg/flac
 INCLUDEPATH += taglib/ogg/opus
