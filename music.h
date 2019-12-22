@@ -1,6 +1,7 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
+#include <QImage>
 #include <QObject>
 
 
@@ -25,10 +26,14 @@ public:
     QString url() const;
     void setUrl(const QString &url);
 
+    void setImage(const QImage &image);
+
 private:
+    QString m_url;
+
     QString m_author;
     QString m_titles;
-    QString m_url;
+    QImage m_image;
 
 
 signals:

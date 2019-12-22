@@ -33,9 +33,10 @@ public:
 
     QMediaPlaylist playList() const;
     void setPlayList(const QMediaPlaylist &playList);
+    void clearLlst();
+    void signalingListChanged();
 
 private:
-    void clearLlst();
 
 signals:
     void urlChanged();
@@ -43,7 +44,6 @@ signals:
     void inputListChanged();
 
 public slots:
-    QString inputMusicList(const QUrl &ListUrl);
     QString setImageFile(QString filename);
 
 

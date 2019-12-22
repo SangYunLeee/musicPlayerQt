@@ -9,6 +9,7 @@ import "define.js" as Define
 //import io.qt.examples.backend 1.0
 Window {
     property string path: "" //"file:///home/sori/Desktop/qtProject/musicPlayer/image/"
+
     id: rootId
     visible: true
     width: 800
@@ -17,8 +18,10 @@ Window {
     x: Screen.width / 2 - width / 2
     y: Screen.height / 2 - height / 2
 
+
     //rootRow
-    MyRow {
+        MyRow {
+
         visible: true
         id: rootRowId
         height: rootId.height
@@ -196,16 +199,7 @@ Window {
                 listViewId.changee.connect(listItemClicked);
         }
     }
-    function listItemClicked( artist, title, url ){
-        artistId.text = artist;
-        titleId.text = title;
-        playMusic.source = "file:///" + url;
-        print("clicked Item source :" + playMusic.source );
-        playMusic.play();
-        startBtnId.source = "pause.svg";
-        startBtnId.start = true;
-        imageId.source = cppMusicList.setImageFile(url);
-    }
+
     FolderDialog {
         id: folderDialogId
         onAccepted: {
@@ -240,10 +234,16 @@ Window {
         }
 
     }
-//    Component.onCompleted:{
-//        cppMusicList.inputMusicList(path);
-//        if(listViewId.listId.count >= 1)
-//            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url);
-//    }
+
+    function listItemClicked( artist, title, url ){
+        artistId.text = artist;
+        titleId.text = title;
+        playMusic.source = "file:///" + url;
+        print("clicked Item source :" + playMusic.source );
+        playMusic.play();
+        startBtnId.source = "pause.svg";
+        startBtnId.start = true;
+        imageId.source = cppMusicList.setImageFile(url);
+    }
 
 }

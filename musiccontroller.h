@@ -16,12 +16,13 @@ public:
 signals:
 
 public slots:
-    virtual QString loadMusicList(const QUrl &ListUrl);
+    QString loadMusicList(const QUrl &ListUrl);
 
 
 private:
     MusicList* m_musicList;
     QString m_url;
+    QImage m_image_main;
 };
 
 #endif // MUSICCONTROLLER_H

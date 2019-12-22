@@ -3,6 +3,7 @@ release/music.o
 release/musiccontroller.o
 release/musiclist.o
 release/listofcolor.o
+release/utility_file.o
 release/apefile.o
 release/apefooter.o
 release/apeitem.o
@@ -105,3 +106,4 @@ release/moc_music.o
 release/moc_musiccontroller.o
 release/moc_musiclist.o
 release/moc_listofcolor.o
+release/moc_utility_file.o

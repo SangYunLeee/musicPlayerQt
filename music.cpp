@@ -8,7 +8,9 @@ Music::Music(QObject *parent) : QObject(parent)
 }
 
 Music::Music(QString author, QString title, QString url, QObject *parent) : QObject (parent)
-  ,m_author(author),m_titles(title),m_url(url)
+  ,m_url(url)
+  ,m_author(author)
+  ,m_titles(title)
 {
 
 }
@@ -44,6 +46,11 @@ QString Music::url() const
 void Music::setUrl(const QString &url)
 {
     m_url = url;
+}
+
+void Music::setImage(const QImage &image)
+{
+    m_image = image;
 }
 
 void Music::testSetTitle()

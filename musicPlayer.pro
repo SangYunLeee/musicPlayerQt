@@ -37,7 +37,8 @@ SOURCES += \
         music.cpp \
         musiccontroller.cpp \
         musiclist.cpp \
-        listofcolor.cpp
+        listofcolor.cpp \
+        utility_file.cpp
 
 RESOURCES += qml.qrc \
             image.qrc
@@ -57,7 +58,8 @@ HEADERS += \
     music.h \
     musiccontroller.h \
     musiclist.h \
-    listofcolor.h
+    listofcolor.h \
+    utility_file.h
 
 #INCLUDEPATH += $$PWD/../../../Libraries/taglib-1.11.1/taglib
 #DEPENDPATH += $$PWD/../../../Libraries/taglib-1.11.1/taglib

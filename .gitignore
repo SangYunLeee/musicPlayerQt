@@ -21,6 +21,9 @@
 *pro.user*
 *Makefile*
 *.opt
+*moc*
+*Release*
+object_script.musicPlayer.Release
 # A listing of all the files included in the project
 *.files
 

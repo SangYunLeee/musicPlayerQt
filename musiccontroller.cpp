@@ -20,41 +20,51 @@ MusicList *MusicController::musicList() const
 
 QString MusicController::loadMusicList(const QUrl &url_musicList)
 {
-#if 1
     m_url = url_musicList.toLocalFile();
     qDebug() << Q_FUNC_INFO;
     qDebug() << "m_url: " << m_url;
 
+    //Filter For MP3
     QStringList filter;
     filter << "*.mp3";
     QDirIterator it(m_url, filter, QDir::AllEntries | QDir::NoSymLinks | QDir::Files);
 
-    //if mp3 exists, make dir
-    if(it.hasNext()) {
-        QDir dir(m_url+"/" + IMAGE_PATH);
-        if (false == dir.exists())
-        {
-            qDebug() <<  it.filePath() << it.fileName();
-            QDir directory(m_url);
-            directory.mkdir(IMAGE_PATH);
-        }
+    bool b_listExist = it.hasNext();
+
+    //make Image Folder
+    if(b_listExist) {
+        QDir directory(m_url);
+        directory.mkdir(IMAGE_PATH);
     }
     else{
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
         return "None Files ";
     }
 
-    QStringList files;
+    QStringList list_str_url;
     while (it.hasNext()){
-        files << it.next();
+        list_str_url << it.next();
     }
-    for(QString file: files)
-    {
-        qDebug() << Q_FUNC_INFO << file;
+
+    musicList()->clearLlst();
+
+    //insert musicList
+    QList<QObject *> list;
+    for(QString url : list_str_url){
+
+        TagLib::FileName fn(url.toStdWString().c_str());
+        TagLib::FileRef ref(fn);
+
+        QString artist = ref.tag()->artist().toCString(true);
+        QString title = ref.tag()->title().toCString(true);
+
+        list.append(new Music(artist,title,url));
+
+        qDebug() << "artist: " << artist;
+        qDebug() << "title : " << title;
     }
+    musicList()->setConvertedMusicList(list);
+    musicList()->signalingListChanged();
 
     return "Happy New Year";
-
-
-#endif
 }
