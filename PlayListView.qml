@@ -19,7 +19,7 @@ Item {
 
         //Title
         Rectangle {
-            id: titleId
+            id: id_title
             height: 65
             width: parent.width
             color: "#FFFBE6"
@@ -35,13 +35,13 @@ Item {
             }
         }
 
-        //Imformation LIstView
+        //Imformation ListView
         ListView {
             signal changeListBar(int contentY);
             clip: true
             id: listViewId
             width: rootId.width
-            height: parent.height - titleId.height
+            height: parent.height - id_title.height
             delegate: delegateId
             model: cppMusicList.inputList
             highlight: Rectangle{
@@ -71,7 +71,7 @@ Item {
     }
     ScrollBarListView {
         id: listscb
-        width: 8
+        width: 13
         anchors.right: colId.right;
         y: listViewId.y
         targetForScrBar: listViewId

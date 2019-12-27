@@ -11,6 +11,7 @@ Window {
     property string path: "" //"file:///home/sori/Desktop/qtProject/musicPlayer/image/"
 
     id: rootId
+    objectName: "rootId"
     visible: true
     width: 800
     height: 480
@@ -18,6 +19,7 @@ Window {
     x: Screen.width / 2 - width / 2
     y: Screen.height / 2 - height / 2
 
+    signal fire;
 
     //rootRow
         MyRow {
@@ -33,7 +35,6 @@ Window {
             width: rootId.width - listViewId.width
             height: rootId.height
             color: Define.color_1
-
 
             //Upper
             MyRow {
@@ -59,15 +60,17 @@ Window {
                     color: Define.color_1
                     padding: 110
                     spacing: 50
-                    Text{
-                        width: 180
+                    Text{   //
                         id: titleId
-                        text: listViewId.listId.currentItem.model.titles
-                        horizontalAlignment: Text.AlignHCenter
+                        width: 180
+
+                        text: cppCurrentMusic.titles
                         color: "Tomato"
                         font.pointSize: 15
-                        anchors.horizontalCenter: parent.horizontalCenter
                         wrapMode: Text.WordWrap;
+
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
                         MouseArea{
                             anchors.fill: parent
                             drag.target: middleId.fiilbar
@@ -76,13 +79,14 @@ Window {
                     Text{
                         id: artistId
                         width: 180
-                        text: "title"
+
+                        text: cppCurrentMusic.author
                         font.pointSize: 13
                         color: "DarkGreen"
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        wrapMode: Text.WordWrap;
+
                         horizontalAlignment: Text.AlignHCenter
-                        wrapMode:
-                            Text.WordWrap;
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
             }
@@ -168,6 +172,7 @@ Window {
                             listViewId.listId.currentIndex++;
                             print(listViewId.listId.model[listViewId.listId.currentIndex].url);
                             listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url)
+                            fire();
 
                         }
                         source:"back.svg"
@@ -236,8 +241,8 @@ Window {
     }
 
     function listItemClicked( artist, title, url ){
-        artistId.text = artist;
-        titleId.text = title;
+//        artistId.text = artist;
+//        titleId.text = title;
         playMusic.source = "file:///" + url;
         print("clicked Item source :" + playMusic.source );
         playMusic.play();

@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "music.h"
 #include "musiclist.h"
+#include <QUrl>
 #include <musiccontroller.h>
 
 int main(int argc, char *argv[])
@@ -18,12 +19,17 @@ int main(int argc, char *argv[])
     MusicController* musicController = new MusicController();
     engine.rootContext()->setContextProperty("cppMusicController", musicController);
     engine.rootContext()->setContextProperty("cppMusicList", musicController->musicList());
+    engine.rootContext()->setContextProperty("cppCurrentMusic", musicController->currentMusic());
+
 
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
+
     QObject* maybeRootQml = engine.rootObjects().first();
+    musicController->loadQml(maybeRootQml);
+    maybeRootQml->setProperty("title","it's tired");
 
     return app.exec();
 }

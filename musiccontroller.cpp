@@ -4,6 +4,7 @@
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
+  ,m_currentMusic(new Music("author","title","url"))
   ,m_url("Null")
 {
 }
@@ -13,9 +14,19 @@ MusicController::~MusicController()
     m_musicList->deleteLater();
 }
 
+void MusicController::loadQml(QObject *qml)
+{
+    m_qml = qml;
+}
+
 MusicList *MusicController::musicList() const
 {
     return m_musicList;
+}
+
+void MusicController::initialize()
+{
+
 }
 
 QString MusicController::loadMusicList(const QUrl &url_musicList)
@@ -67,4 +78,9 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     musicList()->signalingListChanged();
 
     return "Happy New Year";
+}
+
+Music *MusicController::currentMusic() const
+{
+    return m_currentMusic;
 }
