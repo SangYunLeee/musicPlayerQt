@@ -16,14 +16,21 @@ public:
 
     Music *currentMusic() const;
 
+    void setCurrentMusic(Music *currentMusic);
+
 private:
     void initialize();
 
+    QString loadMusicList(const QUrl &ListUrl);
 
 signals:
 
 public slots:
-    QString loadMusicList(const QUrl &ListUrl);
+    // when loaded folder Route
+    QString loadedFolderRoute(const QUrl &ListUrl);
+
+    // when changed List Index
+    void changedListIndex(const int &index);
 
 
 private:

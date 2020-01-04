@@ -1,5 +1,7 @@
 import QtQuick 2.11
-import "define.js" as Define
+import "qrc:/define.js" as Define
+import "qrc:/"
+
 Item {
     id: prograssBar
     width: 150

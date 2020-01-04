@@ -1,5 +1,6 @@
 import QtQuick 2.11
-import "define.js" as Define
+import "qrc:/define.js" as Define
+import "qrc:/"
 Item {
     id: rootId
     width: 100
@@ -65,6 +66,10 @@ Item {
             onModelChanged: {
                 listscb.setup();
             }
+            onCurrentIndexChanged: {
+                cppMusicController.changedListIndex(currentIndex)
+            }
+
 
         }
 

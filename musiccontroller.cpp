@@ -80,6 +80,21 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     return "Happy New Year";
 }
 
+void MusicController::changedListIndex(const int &index)
+{
+    qDebug() << "index: " << index;
+}
+
+void MusicController::setCurrentMusic(Music *currentMusic)
+{
+    m_currentMusic = currentMusic;
+}
+
+QString MusicController::loadedFolderRoute(const QUrl &ListUrl)
+{
+    return loadMusicList(ListUrl);
+}
+
 Music *MusicController::currentMusic() const
 {
     return m_currentMusic;

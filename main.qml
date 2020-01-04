@@ -5,6 +5,7 @@ import QtQuick.Controls 1.4
 import QtMultimedia 5.8
 
 import "define.js" as Define
+import "qrc:/component/qml/component"
 
 //import io.qt.examples.backend 1.0
 Window {
@@ -15,7 +16,6 @@ Window {
     visible: true
     width: 800
     height: 480
-    title: qsTr("Hello World")
     x: Screen.width / 2 - width / 2
     y: Screen.height / 2 - height / 2
 
@@ -42,8 +42,9 @@ Window {
                 height: 340
                 width: playerColumnId.width
                 color: Define.lightGreen
-                //Image
+                //Music Album Image
                 Item {
+                    id: id_musicImage
                     height: parent.height
                     width: parent.width - 200
                     Image {
@@ -54,44 +55,14 @@ Window {
                     }
                 }
                 //Imformation about Music
-                MyColumn {
+                AlbumImformation {
                     height: parent.height
                     width: 200
                     color: Define.color_1
                     padding: 110
                     spacing: 50
-                    Text{   //
-                        id: titleId
-                        width: 180
-
-                        text: cppCurrentMusic.titles
-                        color: "Tomato"
-                        font.pointSize: 15
-                        wrapMode: Text.WordWrap;
-
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        MouseArea{
-                            anchors.fill: parent
-                            drag.target: middleId.fiilbar
-                        }
-                    }
-                    Text{
-                        id: artistId
-                        width: 180
-
-                        text: cppCurrentMusic.author
-                        font.pointSize: 13
-                        color: "DarkGreen"
-                        wrapMode: Text.WordWrap;
-
-                        horizontalAlignment: Text.AlignHCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
                 }
             }
-
-
 
             //Middle PrograssBar
             TimerPrograssBar {
@@ -188,13 +159,13 @@ Window {
                 }
             }
         }
+        //Line
         Rectangle{
             color: Define.lightGreen
             height: listViewId.height;
             width: 1;
             opacity: 0.6;
         }
-
         //PlayerList
         PlayListView {
             id: listViewId
@@ -209,16 +180,11 @@ Window {
         id: folderDialogId
         onAccepted: {
             path =  folderDialogId.folder.toString() + "/"
-            cppMusicController.loadMusicList(folder);
-//            cppMusicList.inputMusicList(folderDialogId.folder);
-//            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author
-//                            ,listViewId.listId.model[listViewId.listId.currentIndex].titles
-//                            ,listViewId.listId.model[listViewId.listId.currentIndex].url);
+            cppMusicController.loadedFolderRoute(folder);
             print(path);
-
-
         }
     }
+
     MediaPlayer {
         id: playMusic
         source: ""
@@ -241,8 +207,6 @@ Window {
     }
 
     function listItemClicked( artist, title, url ){
-//        artistId.text = artist;
-//        titleId.text = title;
         playMusic.source = "file:///" + url;
         print("clicked Item source :" + playMusic.source );
         playMusic.play();

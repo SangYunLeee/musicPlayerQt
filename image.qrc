@@ -4,7 +4,5 @@
         <file>pause.svg</file>
         <file>open.svg</file>
         <file>back.svg</file>
-
-
     </qresource>
 </RCC>
