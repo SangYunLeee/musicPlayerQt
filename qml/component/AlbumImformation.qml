@@ -11,17 +11,14 @@ MyColumn {
         id: titleId
         width: 180
 
-        text: cppCurrentMusic.titles
+        text: cppCurrentMusic.titles;
         color: "Tomato"
         font.pointSize: 15
         wrapMode: Text.WordWrap;
 
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
-//        MouseArea{
-//            anchors.fill: parent
-//            drag.target: middleId.fiilbar
-//        }
+
     }
     Text{
         id: artistId

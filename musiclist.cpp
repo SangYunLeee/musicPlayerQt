@@ -77,7 +77,7 @@ void MusicList::setInputList(const QVariant &inputList)
     m_inputList = inputList;
 }
 
-void MusicList::clearLlst()
+void MusicList::clearList()
 {
     //make list empty
     for(auto* music : m_convertedMusicList){

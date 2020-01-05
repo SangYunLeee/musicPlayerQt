@@ -33,7 +33,7 @@ public:
 
     QMediaPlaylist playList() const;
     void setPlayList(const QMediaPlaylist &playList);
-    void clearLlst();
+    void clearList();
     void signalingListChanged();
 
 private:

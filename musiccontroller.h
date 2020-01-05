@@ -19,25 +19,26 @@ public:
     void setCurrentMusic(Music *currentMusic);
 
 private:
-    void initialize();
-
     QString loadMusicList(const QUrl &ListUrl);
 
 signals:
 
 public slots:
-    // when loaded folder Route
+    // when folder Route loaded
     QString loadedFolderRoute(const QUrl &ListUrl);
 
-    // when changed List Index
+    // when List Index changed
     void changedListIndex(const int &index);
-
 
 private:
     MusicList* m_musicList;
     Music* m_currentMusic;
+
+    // folder route
     QString m_url;
+    // image for current Music
     QImage m_image_main;
+    //qml object
     QObject* m_qml;
 };
 

@@ -4,7 +4,7 @@
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
-  ,m_currentMusic(new Music("author","title","url"))
+  ,m_currentMusic(new Music("author22","title22","url"))
   ,m_url("Null")
 {
 }
@@ -12,6 +12,7 @@ MusicController::MusicController(QObject *parent) : QObject(parent)
 MusicController::~MusicController()
 {
     m_musicList->deleteLater();
+    m_currentMusic->deleteLater();
 }
 
 void MusicController::loadQml(QObject *qml)
@@ -22,11 +23,6 @@ void MusicController::loadQml(QObject *qml)
 MusicList *MusicController::musicList() const
 {
     return m_musicList;
-}
-
-void MusicController::initialize()
-{
-
 }
 
 QString MusicController::loadMusicList(const QUrl &url_musicList)
@@ -57,7 +53,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
         list_str_url << it.next();
     }
 
-    musicList()->clearLlst();
+    musicList()->clearList();
 
     //insert musicList
     QList<QObject *> list;
@@ -75,7 +71,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
         qDebug() << "title : " << title;
     }
     musicList()->setConvertedMusicList(list);
-    musicList()->signalingListChanged();
+    emit musicList()->inputListChanged();
 
     return "Happy New Year";
 }
@@ -83,6 +79,9 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
 void MusicController::changedListIndex(const int &index)
 {
     qDebug() << "index: " << index;
+    Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
+    m_currentMusic->setTitles(currentMusic->titles());
+    m_currentMusic->setAuthor(currentMusic->author());
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)
