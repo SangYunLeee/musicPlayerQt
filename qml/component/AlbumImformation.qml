@@ -7,6 +7,7 @@ MyColumn {
     color: Define.color_1
     padding: 110
     spacing: 50
+
     Text{   //
         id: titleId
         width: 180

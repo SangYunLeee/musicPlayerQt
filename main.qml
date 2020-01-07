@@ -30,134 +30,12 @@ Window {
         width: rootId.width
 
         //Player
-        MyColumn {
+        Player {
             id: playerColumnId
             width: rootId.width - listViewId.width
             height: rootId.height
             color: Define.color_1
 
-            //Upper
-            MyRow {
-                id: upperId
-                height: 340
-                width: playerColumnId.width
-                color: Define.lightGreen
-                //Music Album Image
-                Item {
-                    id: id_musicImage
-                    height: parent.height
-                    width: parent.width - 200
-                    Image {
-                        id: imageId
-                        anchors.centerIn: parent
-                        height: parent.height * 4 / 5
-                        width: parent.width * 4 / 5
-                    }
-                }
-                //Imformation about Music
-                AlbumImformation {
-                    height: parent.height
-                    width: 200
-                    color: Define.color_1
-                    padding: 110
-                    spacing: 50
-                }
-            }
-
-            //Middle PrograssBar
-            TimerPrograssBar {
-                id: middleId
-                height: 20
-                width: parent.width
-                Component.onCompleted: {
-                    passingCurrnetTime.connect(playMusic.seek);
-                }
-            }
-
-            Item {
-                height: parent.height - upperId.height - middleId.height
-                width: parent.width
-
-                MyRow {
-                    id: bottomButtonsId
-                    height: buttonId.height
-                    width: buttonId.width * buttonNum + spacing * (buttonNum - 1)
-                    color: "transparent"
-                    spacing: 30
-                    anchors.centerIn: parent
-                    property int buttonNum: 4
-
-                    MyButton {
-                        id: buttonId
-                        height: 40
-                        onClicked: folderDialogId.open()
-                        source: "open.svg"
-                    }
-                    MyButton {
-                        id: backId
-                        height: 42
-                        onClicked:{
-                            if(listViewId.listId.currentIndex>=1){
-                            listViewId.listId.currentIndex--;
-                            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url)
-                            }
-                        }
-                        source: "back.svg"
-                        states: State {
-                            name: "moved"; when: backId.mouseArea.pressed
-                            PropertyChanges { target: backId.imageId; x: backId.x-90; }
-                        }
-                        transitions: Transition {
-                            NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad }
-                        }
-                   }
-
-                    MyButton {
-                        id: startBtnId
-                        property bool start: false
-                        height:  37
-                        onClicked:{
-                            console.log("start Btn");
-                            if(start){
-                                source = "start.svg";
-                                start = false;
-                                middleId.running = false
-                                playMusic.pause();
-                            }
-                                else {
-                                source = "pause.svg";
-                                start = true;
-                                middleId.running = true
-                                 playMusic.play();
-                            }
-                        }
-                        source:"start.svg"
-                    }
-
-                    MyButton {
-                        id:fowardId
-                        height: 42
-                        rotation: 0
-                        onClicked:{
-                            print("back Btn");
-                            listViewId.listId.currentIndex++;
-                            print(listViewId.listId.model[listViewId.listId.currentIndex].url);
-                            listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url)
-                            fire();
-
-                        }
-                        source:"back.svg"
-                        imageId.mirror : true
-                        states: State {
-                            name: "moved"; when: fowardId.mouseArea.pressed
-                            PropertyChanges { target: fowardId; x: 230; }
-                        }
-                        transitions: Transition {
-                            NumberAnimation { properties: "x"; easing.type: Easing.InOutQuad }
-                        }
-                    }
-                }
-            }
         }
         //Line
         Rectangle{
@@ -189,18 +67,17 @@ Window {
         id: playMusic
         source: ""
         onDurationChanged: {
-            middleId.running=true
-            middleId.fiilbar.width = 0;
-            middleId.currentTime = 0;
-            middleId.lengthOfTime =  playMusic.duration/1000;
+            playerColumnId.alias_middleId.running=true
+            playerColumnId.alias_middleId.fiilbar.width = 0;
+            playerColumnId.alias_middleId.currentTime = 0;
+            playerColumnId.alias_middleId.lengthOfTime =  playMusic.duration/1000;
         }
         onStatusChanged: {
             print("playMusic.status: " + status);
             if(status == 7 ){  // 7 == "EndOfMedia"
                print("sourc has ended");
-               startBtnId. source = "start.svg";
-               startBtnId. start = false;
-               middleId.running = false
+               playerColumnId.alias_startBtnId. start = false;
+               playerColumnId.alias_middleId.running = false
             }
         }
 
@@ -210,9 +87,8 @@ Window {
         playMusic.source = "file:///" + url;
         print("clicked Item source :" + playMusic.source );
         playMusic.play();
-        startBtnId.source = "pause.svg";
-        startBtnId.start = true;
-        imageId.source = cppMusicList.setImageFile(url);
+        playerColumnId.alias_startBtnId.start = true;
+        playerColumnId.alias_imageId.source = cppMusicList.setImageFile(url);
     }
 
 }

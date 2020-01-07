@@ -1,6 +1,7 @@
 import QtQuick 2.11
 import QtGraphicalEffects 1.0
 import "define.js" as Define
+import "qrc:/"
 Item {
     id: rootId
     width: height

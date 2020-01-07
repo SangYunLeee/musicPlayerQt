@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    engine.addImportPath("qrc:/");
+    engine.addImportPath("qrc:/image");
 
     MusicController* musicController = new MusicController();
     engine.rootContext()->setContextProperty("cppMusicController", musicController);
@@ -29,7 +31,7 @@ int main(int argc, char *argv[])
 
     QObject* maybeRootQml = engine.rootObjects().first();
     musicController->loadQml(maybeRootQml);
-    maybeRootQml->setProperty("title","it's tired");
+    maybeRootQml->setProperty("title","Music Player - 상윤 짱");
 
     return app.exec();
 }

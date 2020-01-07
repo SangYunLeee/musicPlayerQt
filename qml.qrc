@@ -13,5 +13,6 @@
         <file>qml/component/TimerPrograssBar.qml</file>
         <file>qml/component/ScrollBarListView.qml</file>
         <file>qml/component/PlayListView.qml</file>
+        <file>qml/component/Player.qml</file>
     </qresource>
 </RCC>
