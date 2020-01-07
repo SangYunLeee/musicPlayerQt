@@ -8,6 +8,8 @@
 #define IMAGE_PATH "imageForMusic"
 
 static QString imageFilePath = "imageForMusic";
+static QString pathPrefix = "file:///";
+
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
@@ -92,7 +94,7 @@ QString MusicController::createImageFile(const QString &url)
     if(qFile.exists())
     {
         qDebug() << "file is exist";
-        return "file:///"+path;
+        return pathPrefix + path;
     }
 
     //make ImageFIle
@@ -111,7 +113,7 @@ QString MusicController::createImageFile(const QString &url)
     image = QImage::fromData( (const uchar*)data1.data(), data1.size());
     qDebug() <<  "path: " << path;
     image.save( path , "JPEG");
-    return "file:///"+path;
+    return pathPrefix + path;
 
 }
 
@@ -121,9 +123,10 @@ void MusicController::changedListIndex(const int &index)
     Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
     m_currentMusic->setTitles(currentMusic->titles());
     m_currentMusic->setAuthor(currentMusic->author());
+    m_currentMusic->setUrl(currentMusic->url());
 
     QString url = createImageFile(currentMusic->url());
-    m_currentMusic->setUrl(url);
+    m_currentMusic->setImageUrl(url);
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)

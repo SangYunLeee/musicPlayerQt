@@ -69,8 +69,6 @@ Item {
                 //print((ratio*100).toFixed(0))
                 currentTime += 0.01
                 width = ratio * prograssBar.width
-            } else {
-                timer.running = false
             }
         }
     }

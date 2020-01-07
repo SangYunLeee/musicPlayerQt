@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import "qrc:/define.js" as Define
 import "qrc:/"
-
+import QtMultimedia 5.8
 MyColumn {
     id: playerColumnId
     width: rootId.width - listViewId.width
@@ -30,7 +30,7 @@ MyColumn {
                 anchors.centerIn: parent
                 height: parent.height * 4 / 5
                 width: height //parent.width * 4 / 5
-                source: cppCurrentMusic.url
+                source: cppCurrentMusic.imageUrl
             }
         }
         //Imformation about Music
@@ -94,28 +94,18 @@ MyColumn {
 
             MyButton {
                 id: startBtnId
-                property bool start: false
+                readonly property bool start: playMusic.playbackState === MediaPlayer.PlayingState ? true : false
                 height:  37
                 onClicked:{
                     if(start){
-                        start = false;
+                        playMusic.pause();
                     }
                         else {
-                        start = true;
+//                        middleId.running = true
+                         playMusic.play();
                     }
                 }
                 source: start? "/pause.svg" : "/start.svg"
-
-                onStartChanged: {
-                    if(start){
-                        middleId.running = true
-                         playMusic.play();
-                    }
-                    else{
-                        middleId.running = false
-                        playMusic.pause();
-                    }
-                }
             }
 
             MyButton {

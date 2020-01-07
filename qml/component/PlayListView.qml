@@ -68,6 +68,7 @@ Item {
             }
             onCurrentIndexChanged: {
                 cppMusicController.changedListIndex(currentIndex)
+                playMusic.play();
             }
 
 
@@ -107,7 +108,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     listViewId.currentIndex = index;
-                    changee(modelData.author, modelData.titles, modelData.url);
+//                    changee(modelData.author, modelData.titles, modelData.url);
 
 
             }

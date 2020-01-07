@@ -54,6 +54,17 @@ void Music::setImage(const QImage &image)
     m_image = image;
 }
 
+QString Music::imageUrl() const
+{
+    return m_imageUrl;
+}
+
+void Music::setImageUrl(const QString &imageUrl)
+{
+    m_imageUrl = imageUrl;
+    emit imageUrlChanged();
+}
+
 void Music::testSetTitle()
 {
     m_author = "chenged";

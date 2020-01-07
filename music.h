@@ -12,6 +12,7 @@ class Music : public QObject
     Q_PROPERTY(QString author READ author WRITE setAuthor NOTIFY authorChanged)
     Q_PROPERTY(QString titles READ titles WRITE setTitles NOTIFY titlesChanged)
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
+    Q_PROPERTY(QString imageUrl READ imageUrl WRITE setImageUrl NOTIFY imageUrlChanged)
 
 public:
     explicit Music(QObject *parent = nullptr);
@@ -28,8 +29,12 @@ public:
 
     void setImage(const QImage &image);
 
+    QString imageUrl() const;
+    void setImageUrl(const QString &imageUrl);
+
 private:
     QString m_url;
+    QString m_imageUrl;
 
     QString m_author;
     QString m_titles;
@@ -40,6 +45,7 @@ signals:
     void urlChanged();
     void titlesChanged();
     void authorChanged();
+    void imageUrlChanged();
 
 public slots:
     void testSetTitle();

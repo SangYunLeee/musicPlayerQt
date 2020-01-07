@@ -10,6 +10,7 @@ import "qrc:/component/qml/component"
 //import io.qt.examples.backend 1.0
 Window {
     property string path: "" //"file:///home/sori/Desktop/qtProject/musicPlayer/image/"
+    property string pathPrefix: "file:///"
 
     id: rootId
     objectName: "rootId"
@@ -65,9 +66,9 @@ Window {
 
     MediaPlayer {
         id: playMusic
-        source: ""
+        source: pathPrefix + cppCurrentMusic.url
         onDurationChanged: {
-            playerColumnId.alias_middleId.running=true
+//            playerColumnId.alias_middleId.running=true
             playerColumnId.alias_middleId.fiilbar.width = 0;
             playerColumnId.alias_middleId.currentTime = 0;
             playerColumnId.alias_middleId.lengthOfTime =  playMusic.duration/1000;
@@ -76,8 +77,9 @@ Window {
             print("playMusic.status: " + status);
             if(status == 7 ){  // 7 == "EndOfMedia"
                print("sourc has ended");
-               playerColumnId.alias_startBtnId. start = false;
-               playerColumnId.alias_middleId.running = false
+//               playerColumnId.alias_startBtnId. start = false;
+//               playerColumnId.alias_middleId.running = false
+
             }
         }
 
@@ -86,8 +88,8 @@ Window {
     function listItemClicked( artist, title, url ){
         playMusic.source = "file:///" + url;
         print("clicked Item source :" + playMusic.source );
-        playMusic.play();
-        playerColumnId.alias_startBtnId.start = true;
+//        playMusic.play();
+//        playerColumnId.alias_startBtnId.start = true;
 //        playerColumnId.alias_imageId.source = cppMusicList.setImageFile(url);
     }
 
