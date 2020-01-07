@@ -30,6 +30,7 @@ MyColumn {
                 anchors.centerIn: parent
                 height: parent.height * 4 / 5
                 width: height //parent.width * 4 / 5
+                source: cppCurrentMusic.url
             }
         }
         //Imformation about Music
@@ -39,9 +40,6 @@ MyColumn {
             color: Define.color_1
             padding: 110
             spacing: 50
-            Text {
-                text: qsTr("text")
-            }
         }
     }
 

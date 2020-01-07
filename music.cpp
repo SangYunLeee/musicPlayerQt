@@ -46,6 +46,7 @@ QString Music::url() const
 void Music::setUrl(const QString &url)
 {
     m_url = url;
+    emit urlChanged();
 }
 
 void Music::setImage(const QImage &image)

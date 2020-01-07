@@ -43,10 +43,6 @@ signals:
     void convertedMusicListChanged();
     void inputListChanged();
 
-public slots:
-    QString setImageFile(QString filename);
-
-
 private:
     QString m_url;
     QList<QObject*> m_convertedMusicList;

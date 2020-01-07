@@ -35,38 +35,6 @@ void MusicList::setConvertedMusicList(const QList<QObject *> &convertedMusicList
     m_convertedMusicList = convertedMusicList;
 }
 
-QString MusicList::setImageFile(QString url)  // url : "/home/sori/Desktop/qtProject/musicPlayer/image/054 마크툽 (MAKTUB), 구윤회 - Marry Me.mp3"
-{
-    QString path = url;
-    path.insert(url.lastIndexOf("/"),"/"+imageFilePath)+".jpeg";
-
-    QFile qFile(path);
-    if(qFile.exists())
-    {
-        qDebug() << "file is exist";
-        return "file:///"+path;
-    }
-
-    //make ImageFIle
-    TagLib::FileRef file (url.toLocal8Bit().data());
-    TagLib::ID3v2::Tag tag(file.file(), 0);
-
-    TagLib::ID3v2::FrameList listOfMp3Frames = tag.frameListMap()["APIC"];
-    TagLib::ID3v2::AttachedPictureFrame * pictureFrame;
-
-    pictureFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame*>(listOfMp3Frames.front());
-
-    TagLib::ByteVector data1 = pictureFrame->picture();
-    qDebug() <<  data1.size() <<  pictureFrame->mimeType().toCString();
-
-    QImage image;
-    image = QImage::fromData( (const uchar*)data1.data(), data1.size());
-    qDebug() <<  "path: " << path;
-    image.save( path , "JPEG");
-    return "file:///"+path;
-
-}
-
 QVariant MusicList::inputList() const
 {
     return QVariant::fromValue(m_convertedMusicList);

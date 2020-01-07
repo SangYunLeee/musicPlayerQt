@@ -88,7 +88,7 @@ Window {
         print("clicked Item source :" + playMusic.source );
         playMusic.play();
         playerColumnId.alias_startBtnId.start = true;
-        playerColumnId.alias_imageId.source = cppMusicList.setImageFile(url);
+//        playerColumnId.alias_imageId.source = cppMusicList.setImageFile(url);
     }
 
 }

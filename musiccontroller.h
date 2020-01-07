@@ -4,6 +4,8 @@
 #include <QObject>
 #include "musiclist.h"
 
+
+
 class MusicController : public QObject
 {
     Q_OBJECT
@@ -20,6 +22,8 @@ public:
 
 private:
     QString loadMusicList(const QUrl &ListUrl);
+
+    QString createImageFile(const QString& url);
 
 signals:
 

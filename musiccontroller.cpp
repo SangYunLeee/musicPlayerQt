@@ -1,6 +1,13 @@
 #include "musiccontroller.h"
 
+#include <id3v2tag.h>
+#include <frames/attachedpictureframe.h>
+#include <tag.h>
+#include <fileref.h>
+
 #define IMAGE_PATH "imageForMusic"
+
+static QString imageFilePath = "imageForMusic";
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
@@ -76,12 +83,47 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     return "Happy New Year";
 }
 
+QString MusicController::createImageFile(const QString &url)
+{
+    QString path = url;
+    path.insert(url.lastIndexOf("/"),"/"+imageFilePath)+".jpeg";
+
+    QFile qFile(path);
+    if(qFile.exists())
+    {
+        qDebug() << "file is exist";
+        return "file:///"+path;
+    }
+
+    //make ImageFIle
+    TagLib::FileRef file (url.toLocal8Bit().data());
+    TagLib::ID3v2::Tag tag(file.file(), 0);
+
+    TagLib::ID3v2::FrameList listOfMp3Frames = tag.frameListMap()["APIC"];
+    TagLib::ID3v2::AttachedPictureFrame * pictureFrame;
+
+    pictureFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame*>(listOfMp3Frames.front());
+
+    TagLib::ByteVector data1 = pictureFrame->picture();
+    qDebug() <<  data1.size() <<  pictureFrame->mimeType().toCString();
+
+    QImage image;
+    image = QImage::fromData( (const uchar*)data1.data(), data1.size());
+    qDebug() <<  "path: " << path;
+    image.save( path , "JPEG");
+    return "file:///"+path;
+
+}
+
 void MusicController::changedListIndex(const int &index)
 {
     qDebug() << "index: " << index;
     Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
     m_currentMusic->setTitles(currentMusic->titles());
     m_currentMusic->setAuthor(currentMusic->author());
+
+    QString url = createImageFile(currentMusic->url());
+    m_currentMusic->setUrl(url);
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)
