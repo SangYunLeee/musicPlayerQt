@@ -20,8 +20,6 @@ Window {
     x: Screen.width / 2 - width / 2
     y: Screen.height / 2 - height / 2
 
-    signal fire;
-
     //rootRow
         MyRow {
 
@@ -50,8 +48,6 @@ Window {
             id: listViewId
             height: rootRowId.height
             width: 260
-            Component.onCompleted:
-                listViewId.changee.connect(listItemClicked);
         }
     }
 
@@ -68,29 +64,19 @@ Window {
         id: playMusic
         source: pathPrefix + cppCurrentMusic.url
         onDurationChanged: {
-//            playerColumnId.alias_middleId.running=true
-            playerColumnId.alias_middleId.fiilbar.width = 0;
             playerColumnId.alias_middleId.currentTime = 0;
             playerColumnId.alias_middleId.lengthOfTime =  playMusic.duration/1000;
         }
         onStatusChanged: {
             print("playMusic.status: " + status);
             if(status == 7 ){  // 7 == "EndOfMedia"
-               print("sourc has ended");
-//               playerColumnId.alias_startBtnId. start = false;
-//               playerColumnId.alias_middleId.running = false
-
+                print("sourc has ended");
+                if(listViewId.listId.currentIndex + 1 < listViewId.listId.count)
+                    listViewId.listId.currentIndex++;
+                else{
+                    listViewId.listId.currentIndex = 0;
+                }
             }
         }
-
     }
-
-    function listItemClicked( artist, title, url ){
-        playMusic.source = "file:///" + url;
-        print("clicked Item source :" + playMusic.source );
-//        playMusic.play();
-//        playerColumnId.alias_startBtnId.start = true;
-//        playerColumnId.alias_imageId.source = cppMusicList.setImageFile(url);
-    }
-
 }

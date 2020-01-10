@@ -6,7 +6,6 @@ Item {
     id: prograssBar
     width: 150
     height: 30
-    property alias running: timer.running
     property alias fiilbar: fillBar
     signal passingCurrnetTime(var currentTime)
     //length of time
@@ -14,7 +13,7 @@ Item {
     property real currentTime: 0
 
     //ratio
-    property real ratio: currentTime / lengthOfTime
+    property real ratio: playMusic.position / playMusic.duration
 
     //main stick
     Rectangle {
@@ -30,64 +29,39 @@ Item {
             drag.target: unvisibleId
             onPressed: {
                 prograssBar.currentTime = ( mouseAreaId.mouseX -mainRect.x)/mainRect.width * lengthOfTime;
-                fillBar. width = ratio * prograssBar.width;
             }
             onReleased:
                 passingCurrnetTime(prograssBar.currentTime*1000);
-
-
-
         }
         Item{
             id: unvisibleId
             visible: false
-            onXChanged:
+            onXChanged:{
                 if(mouseAreaId.mouseX > mainRect.x
                         &&
                         mouseAreaId.mouseX < mainRect.x + mainRect.width)
                 {
                         prograssBar.currentTime = ( mouseAreaId.mouseX -mainRect.x)/mainRect.width * lengthOfTime;
-                    if(!timer.running)
-                        fillBar. width = ratio * prograssBar.width
                 }
-
-
-
+                passingCurrnetTime(prograssBar.currentTime*1000);
+            }
         }
     }
 
     //filling block
     Rectangle {
         id: fillBar
-        width: 0
+        width: ratio * prograssBar.width
         height: mainRect.height
         color: Define.prettyGreen
-
-        //fill out until over mainbar
-        function fillOut() {
-            if (width < prograssBar.width + 1) {
-                //print((ratio*100).toFixed(0))
-                currentTime += 0.01
-                width = ratio * prograssBar.width
-            }
-        }
-    }
-
-    Timer {
-        id: timer
-        interval: 10
-        running: false
-        repeat: true
-        onTriggered: fillBar.fillOut()
-
     }
 
     //present progress
     Text {
+        visible: false
         id: sliderValue
-        text: "0"
-        anchors.horizontalCenter: mainRect.horizontalCenter
-        anchors.left: mainRect.right
+        text: playMusic.position
+        anchors.right: mainRect.right
         anchors.leftMargin: 3
     }
 }

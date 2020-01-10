@@ -29,8 +29,15 @@ MyColumn {
                 id: imageId
                 anchors.centerIn: parent
                 height: parent.height * 4 / 5
-                width: height //parent.width * 4 / 5
+                width: height
                 source: cppCurrentMusic.imageUrl
+            }
+            Text {
+                visible: imageId.status == Image.Null
+                anchors.centerIn: parent
+                text: qsTr("이미지가 읍서용")
+                color: Define.YELLOW
+                font.pixelSize: 20
             }
         }
         //Imformation about Music
@@ -46,7 +53,6 @@ MyColumn {
     //Middle PrograssBar
     TimerPrograssBar {
         id: middleId
-        running: startBtnId.start ? true : false
         height: 20
         width: parent.width
         Component.onCompleted: {
@@ -78,8 +84,10 @@ MyColumn {
                 height: 42
                 onClicked:{
                     if(listViewId.listId.currentIndex>=1){
-                    listViewId.listId.currentIndex--;
-                    listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url)
+                        listViewId.listId.currentIndex--;
+                    }
+                    else{
+                        listViewId.listId.currentIndex = listViewId.listId.count-1
                     }
                 }
                 source: "/back.svg"
@@ -96,16 +104,15 @@ MyColumn {
                 id: startBtnId
                 readonly property bool start: playMusic.playbackState === MediaPlayer.PlayingState ? true : false
                 height:  37
+                source: start? "/pause.svg" : "/start.svg"
                 onClicked:{
                     if(start){
                         playMusic.pause();
                     }
-                        else {
-//                        middleId.running = true
-                         playMusic.play();
+                    else {
+                        playMusic.play();
                     }
                 }
-                source: start? "/pause.svg" : "/start.svg"
             }
 
             MyButton {
@@ -114,14 +121,15 @@ MyColumn {
                 rotation: 0
                 onClicked:{
                     print("back Btn");
-                    listViewId.listId.currentIndex++;
-                    print(listViewId.listId.model[listViewId.listId.currentIndex].url);
-                    listItemClicked(listViewId.listId.model[listViewId.listId.currentIndex].author,listViewId.listId.model[listViewId.listId.currentIndex].titles,listViewId.listId.model[listViewId.listId.currentIndex].url)
-                    fire();
-
+                    if(listViewId.listId.currentIndex + 1 < listViewId.listId.count)
+                        listViewId.listId.currentIndex++;
+                    else{
+                        listViewId.listId.currentIndex = 0;
+                    }
                 }
                 source:"/back.svg"
                 imageId.mirror : true
+
                 states: State {
                     name: "moved"; when: fowardId.mouseArea.pressed
                     PropertyChanges { target: fowardId; x: 230; }

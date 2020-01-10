@@ -70,10 +70,7 @@ Item {
                 cppMusicController.changedListIndex(currentIndex)
                 playMusic.play();
             }
-
-
         }
-
     }
     ScrollBarListView {
         id: listscb
@@ -108,19 +105,14 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     listViewId.currentIndex = index;
-//                    changee(modelData.author, modelData.titles, modelData.url);
-
-
-            }
-            Rectangle{
-                visible: listViewId.currentIndex == index ? true : false;
-                anchors.fill: parent
-                color: Define.YELLOW
-                opacity: 0.3
-                z:1
-
-            }
-
+                }
+                Rectangle{
+                    visible: listViewId.currentIndex == index ? true : false;
+                    anchors.fill: parent
+                    color: Define.YELLOW
+                    opacity: 0.3
+                    z:1
+                }
             }
             Component.onCompleted: {
                 if(textId.implicitWidth > listViewId.width ) {

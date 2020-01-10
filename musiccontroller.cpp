@@ -13,7 +13,7 @@ static QString pathPrefix = "file:///";
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
-  ,m_currentMusic(new Music("author22","title22","url"))
+  ,m_currentMusic(new Music(QStringLiteral("가수우"),QStringLiteral("곡 이르음"),"url"))
   ,m_url("Null")
 {
 }
@@ -106,6 +106,9 @@ QString MusicController::createImageFile(const QString &url)
 
     pictureFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame*>(listOfMp3Frames.front());
 
+    if(!pictureFrame){
+        return "";
+    }
     TagLib::ByteVector data1 = pictureFrame->picture();
     qDebug() <<  data1.size() <<  pictureFrame->mimeType().toCString();
 

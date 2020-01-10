@@ -5,7 +5,7 @@ Item {
     property real valuee: 0
     id: scrollBar
     width: scroller.width
-    property var targetForScrBar
+    property ListView targetForScrBar
 
     signal changeContentY(var valY)
 
@@ -62,7 +62,6 @@ Item {
         }
     }
     Component.onCompleted: {
-
         //making scrollBlock prefered size
         setup();
     }
