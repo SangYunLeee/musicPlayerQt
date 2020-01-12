@@ -2,7 +2,7 @@ import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 1.4
-import QtMultimedia 5.8
+import QtMultimedia 5.9
 
 import "define.js" as Define
 import "qrc:/component/qml/component"
@@ -11,6 +11,14 @@ import "qrc:/component/qml/component"
 Window {
     property string path: "" //"file:///home/sori/Desktop/qtProject/musicPlayer/image/"
     property string pathPrefix: "file:///"
+
+    maximumHeight: height
+    minimumHeight: height
+    maximumWidth:  width
+    minimumWidth: width
+
+
+
 
     id: rootId
     objectName: "rootId"
@@ -21,7 +29,7 @@ Window {
     y: Screen.height / 2 - height / 2
 
     //rootRow
-        MyRow {
+    MyRow {
 
         visible: true
         id: rootRowId
@@ -63,6 +71,7 @@ Window {
     MediaPlayer {
         id: playMusic
         source: pathPrefix + cppCurrentMusic.url
+        notifyInterval: 100
         onDurationChanged: {
             playerColumnId.alias_middleId.currentTime = 0;
             playerColumnId.alias_middleId.lengthOfTime =  playMusic.duration/1000;

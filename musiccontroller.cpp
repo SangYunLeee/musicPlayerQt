@@ -54,6 +54,10 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     }
     else{
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
+        musicList()->clearList();
+        QList<QObject*> dd;
+        musicList()->setConvertedMusicList(dd);
+        emit musicList()->inputListChanged();
         return "None Files ";
     }
 
@@ -88,7 +92,8 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
 QString MusicController::createImageFile(const QString &url)
 {
     QString path = url;
-    path.insert(url.lastIndexOf("/"),"/"+imageFilePath)+".jpeg";
+    path.insert(url.lastIndexOf("/"),"/"+imageFilePath);
+    path.append(".jpeg");
 
     QFile qFile(path);
     if(qFile.exists())
@@ -122,14 +127,21 @@ QString MusicController::createImageFile(const QString &url)
 
 void MusicController::changedListIndex(const int &index)
 {
+    if(m_musicList->convertedMusicList().count() == 0)
+    {
+        qDebug() << Q_FUNC_INFO << "there is no list at all";
+        return;
+    }
     qDebug() << "index: " << index;
     Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
     m_currentMusic->setTitles(currentMusic->titles());
     m_currentMusic->setAuthor(currentMusic->author());
-    m_currentMusic->setUrl(currentMusic->url());
 
     QString url = createImageFile(currentMusic->url());
     m_currentMusic->setImageUrl(url);
+
+    m_currentMusic->setUrl(currentMusic->url());
+
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)

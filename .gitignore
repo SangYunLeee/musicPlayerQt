@@ -23,6 +23,8 @@
 *.opt
 *moc*
 *Release*
+release/*
+*rc
 # A listing of all the files included in the project
 *.files
 

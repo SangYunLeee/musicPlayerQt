@@ -64,6 +64,15 @@ MyColumn {
         height: parent.height - upperId.height - middleId.height
         width: parent.width
 
+        Text{
+            id: openBtnPreviewId
+            text: qsTr("폴더를 선택하시면 돼요~")
+            color: "DarkGreen"
+            anchors.bottom: bottomButtonsId.top
+            x: bottomButtonsId.x + buttonId.x - openBtnPreviewId.implicitWidth / 2 + buttonId.width / 2
+            visible: buttonId.mouseArea.containsMouse
+        }
+
         MyRow {
             id: bottomButtonsId
             height: buttonId.height

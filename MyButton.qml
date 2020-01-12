@@ -44,5 +44,6 @@ Item {
         id:mouseAreaId
         anchors.fill: parent
         onClicked: rootId.clicked()
+        hoverEnabled: true
     }
 }

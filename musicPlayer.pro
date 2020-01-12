@@ -43,6 +43,8 @@ SOURCES += \
 RESOURCES += qml.qrc \
             image.qrc
 
+#win32:RC_ICONS += qml\image\icon.png
+
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 

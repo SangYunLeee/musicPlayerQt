@@ -4,5 +4,6 @@
         <file alias="pause.svg">qml/image/pause.svg</file>
         <file alias="open.svg">qml/image/open.svg</file>
         <file alias="back.svg">qml/image/back.svg</file>
+        <file alias="icon.png">qml/image/icon.png</file>
     </qresource>
 </RCC>
