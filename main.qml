@@ -2,7 +2,7 @@ import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 1.4
-import QtMultimedia 5.14
+import QtMultimedia 5.12
 
 
 import "define.js" as Define

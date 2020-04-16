@@ -85,6 +85,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     }
     musicList()->setConvertedMusicList(list);
     emit musicList()->inputListChanged();
+    emit musicList()->sizeChanged();
 
     return "Happy New Year";
 }

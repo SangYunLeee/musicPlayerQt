@@ -1,5 +1,5 @@
 import QtQuick 2.11
-import QtQuick.Controls 2.14
+import QtQuick.Controls 2.5
 import "qrc:/"
 import "qrc:/define.js" as Define
 

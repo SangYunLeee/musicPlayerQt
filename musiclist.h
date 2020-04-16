@@ -18,6 +18,7 @@ class MusicList : public QObject
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
     Q_PROPERTY(QList<QObject*> convertedMusicList READ convertedMusicList WRITE setConvertedMusicList NOTIFY convertedMusicListChanged)
     Q_PROPERTY(QVariant inputList READ inputList WRITE setInputList NOTIFY inputListChanged)
+    Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
 
 public:
     explicit MusicList(QObject *parent = nullptr);
@@ -36,6 +37,11 @@ public:
     void clearList();
     void signalingListChanged();
 
+    int size() const;
+
+public slots:
+    void setSize(int size);
+
 private:
 
 signals:
@@ -43,12 +49,15 @@ signals:
     void convertedMusicListChanged();
     void inputListChanged();
 
+    void sizeChanged();
+
 private:
     QString m_url;
     QList<QObject*> m_convertedMusicList;
     QVariant m_inputList;
     QMediaPlayer mediaPlayer;
     QMediaPlaylist m_playList;
+    int m_size;
 };
 
 #endif // MUSICLIST_H

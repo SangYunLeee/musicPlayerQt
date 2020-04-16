@@ -33,7 +33,7 @@ MyColumn {
                 source: cppCurrentMusic.imageUrl
             }
             Text {
-                visible: imageId.status == Image.Null || Image.Error
+                visible: imageId.source == ""
                 anchors.centerIn: parent
                 text: qsTr("이미지 없당")
                 color: Define.YELLOW

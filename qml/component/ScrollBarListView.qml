@@ -2,25 +2,29 @@ import QtQuick 2.11
 import "qrc:/define.js" as Define
 import "qrc:/"
 Item {
-    property real valuee: 0
     id: scrollBar
-    width: scroller.width
-    property ListView targetForScrBar
-
     signal changeContentY(var valY)
 
+    width: scroller.width
+    height: targetForScrBar ? targetForScrBar.height : 0
+    property ListView targetForScrBar
+
+    // ratio more than 1
+    property real dragRatio: targetForScrBar ? (targetForScrBar.contentHeight - height) / (height - scrollStick.height) : 0
+
     function changeBarY(contentY) {
-        scrollStick.y = (scroller.height - scrollStick.height)
-                / (targetForScrBar.contentHeight - targetForScrBar.height) * contentY
+        if (!draggingId.drag.active)
+        {
+            scrollStick.y = (scroller.height - scrollStick.height)
+                    / (targetForScrBar.contentHeight - targetForScrBar.height) * contentY
+        }
     }
 
     function setup(){
-        height = targetForScrBar.height
-        if (height > targetForScrBar.contentHeight) {
-            scrollStick.height = height
+//        scrollBar.height = targetForScrBar.height
+        if (scrollBar.height > targetForScrBar.contentHeight) {
+//            scrollStick.height = scrollBar.height
         } else {
-            scrollStick.height = height / targetForScrBar.contentHeight * height
-            valuee = (targetForScrBar.contentHeight - height) / (height - scrollStick.height)
         }
    }
 
@@ -28,7 +32,7 @@ Item {
         id: scroller
         color: "blue"
         width: 20
-        height: scrollBar.height
+        height: targetForScrBar ?  scrollBar.height : 1
         opacity: 0.1
 
         MouseArea {
@@ -42,14 +46,14 @@ Item {
     Rectangle {
         id: scrollStick
         width: scroller.width
-        height: 30
+        height: cppMusicList.size < 1 ? 0 : (scrollBar.height / targetForScrBar.contentHeight) * scrollBar.height
 
         color: Define.prettyGreen
         opacity: 0.8
         radius: 3
         onYChanged: {
             if (draggingId.drag.active)
-                changeContentY(-scrollStick.y * valuee)
+                changeContentY(-scrollStick.y * dragRatio)
         }
 
         MouseArea {

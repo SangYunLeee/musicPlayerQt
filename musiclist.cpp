@@ -59,3 +59,17 @@ void MusicList::signalingListChanged()
     emit inputListChanged();
 }
 
+int MusicList::size() const
+{
+    return m_convertedMusicList.size();
+}
+
+void MusicList::setSize(int size)
+{
+    if (m_size == size)
+        return;
+
+    m_size = size;
+    emit sizeChanged();
+}
+
