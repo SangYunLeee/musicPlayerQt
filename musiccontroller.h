@@ -34,6 +34,9 @@ public slots:
     // when List Index changed
     void changedListIndex(const int &index);
 
+    // when search input text changed
+    void changedSearchText(const QString& searchText);
+
 private:
     MusicList* m_musicList;
     Music* m_currentMusic;

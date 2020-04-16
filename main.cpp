@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-
-
     QQmlApplicationEngine engine;
     engine.addImportPath("qrc:/");
     engine.addImportPath("qrc:/image");
@@ -29,10 +27,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("cppMusicController", musicController);
     engine.rootContext()->setContextProperty("cppMusicList", musicController->musicList());
     engine.rootContext()->setContextProperty("cppCurrentMusic", musicController->currentMusic());
-
-
-
-
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty())

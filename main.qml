@@ -2,7 +2,8 @@ import QtQuick 2.11
 import QtQuick.Window 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 1.4
-import QtMultimedia 5.9
+import QtMultimedia 5.14
+
 
 import "define.js" as Define
 import "qrc:/component/qml/component"
@@ -17,8 +18,14 @@ Window {
     maximumWidth:  width
     minimumWidth: width
 
+    MouseArea {
+        anchors.fill: parent
 
-
+        onClicked: {
+            console.log("base mouse area pressed")
+            focus = true
+        }
+    }
 
     id: rootId
     objectName: "rootId"
@@ -41,8 +48,7 @@ Window {
             id: playerColumnId
             width: rootId.width - listViewId.width
             height: rootId.height
-            color: Define.color_1
-
+            color: Define.ivory
         }
         //Line
         Rectangle{

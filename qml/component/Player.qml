@@ -6,7 +6,7 @@ MyColumn {
     id: playerColumnId
     width: rootId.width - listViewId.width
     height: rootId.height
-    color: Define.color_1
+    color: Define.ivory
 
     property alias alias_middleId: middleId
     property alias alias_startBtnId: startBtnId
@@ -33,9 +33,9 @@ MyColumn {
                 source: cppCurrentMusic.imageUrl
             }
             Text {
-                visible: imageId.status == Image.Null
+                visible: imageId.status == Image.Null || Image.Error
                 anchors.centerIn: parent
-                text: qsTr("이미지가 읍서용")
+                text: qsTr("이미지 없당")
                 color: Define.YELLOW
                 font.pixelSize: 20
             }
@@ -44,7 +44,7 @@ MyColumn {
         AlbumImformation {
             height: parent.height
             width: 200
-            color: Define.color_1
+            color: Define.ivory
             padding: 110
             spacing: 50
         }
@@ -127,7 +127,7 @@ MyColumn {
             MyButton {
                 id:fowardId
                 height: 42
-                rotation: 0
+                rotation: 180
                 onClicked:{
                     print("back Btn");
                     if(listViewId.listId.currentIndex + 1 < listViewId.listId.count)
@@ -137,7 +137,6 @@ MyColumn {
                     }
                 }
                 source:"/back.svg"
-                imageId.mirror : true
 
                 states: State {
                     name: "moved"; when: fowardId.mouseArea.pressed

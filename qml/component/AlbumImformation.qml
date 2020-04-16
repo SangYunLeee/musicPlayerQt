@@ -4,7 +4,7 @@ import "qrc:/"
 MyColumn {
     height: parent.height
     width: 200
-    color: Define.color_1
+    color: Define.ivory
     padding: 110
     spacing: 50
 

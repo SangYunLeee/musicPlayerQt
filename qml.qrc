@@ -7,6 +7,7 @@
         <file>MyButton.qml</file>
         <file>FolderDialog.qml</file>
         <file>define.js</file>
+        <file>MyItem.qml</file>
     </qresource>
     <qresource prefix="/component">
         <file>qml/component/AlbumImformation.qml</file>
@@ -14,5 +15,6 @@
         <file>qml/component/ScrollBarListView.qml</file>
         <file>qml/component/PlayListView.qml</file>
         <file>qml/component/Player.qml</file>
+        <file>qml/component/SearchTextInput.qml</file>
     </qresource>
 </RCC>

@@ -55,8 +55,8 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     else{
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
         musicList()->clearList();
-        QList<QObject*> dd;
-        musicList()->setConvertedMusicList(dd);
+        QList<QObject*> emptyList;
+        musicList()->setConvertedMusicList(emptyList);
         emit musicList()->inputListChanged();
         return "None Files ";
     }
@@ -112,6 +112,7 @@ QString MusicController::createImageFile(const QString &url)
     pictureFrame = static_cast<TagLib::ID3v2::AttachedPictureFrame*>(listOfMp3Frames.front());
 
     if(!pictureFrame){
+        qDebug() << Q_FUNC_INFO << "Image doesn't exist";
         return "";
     }
     TagLib::ByteVector data1 = pictureFrame->picture();
@@ -127,21 +128,31 @@ QString MusicController::createImageFile(const QString &url)
 
 void MusicController::changedListIndex(const int &index)
 {
-    if(m_musicList->convertedMusicList().count() == 0)
+    //index over check
+    qDebug() << "index: " << index;
+    if(index < 0 || index >= m_musicList->convertedMusicList().size())
     {
-        qDebug() << Q_FUNC_INFO << "there is no list at all";
+        qDebug() << Q_FUNC_INFO << "index over";
         return;
     }
-    qDebug() << "index: " << index;
+    //current Music Change
     Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
-    m_currentMusic->setTitles(currentMusic->titles());
-    m_currentMusic->setAuthor(currentMusic->author());
+    QString title = currentMusic->titles() != QStringLiteral("") ?
+                currentMusic->titles() : QStringLiteral("곡 제목 없당");
+    m_currentMusic->setTitles(title);
+
+    QString author = currentMusic->author() != QStringLiteral("") ?
+                currentMusic->author() : QStringLiteral("가수 이름 없당");
+    m_currentMusic->setAuthor(author);
 
     QString url = createImageFile(currentMusic->url());
     m_currentMusic->setImageUrl(url);
-
     m_currentMusic->setUrl(currentMusic->url());
+}
 
+void MusicController::changedSearchText(const QString& searchText)
+{
+    qDebug() << "Text Changed : " <<searchText;
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)
