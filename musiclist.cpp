@@ -5,6 +5,7 @@
 #include <QMediaContent>
 #include <id3v2tag.h>
 #include <frames/attachedpictureframe.h>
+#include "musiccontroller.h"
 
 
 static QString imageFilePath = "imageForMusic";
@@ -25,19 +26,22 @@ void MusicList::setUrl(const QString &url)
     m_url = url;
 }
 
-QList<QObject *> MusicList::convertedMusicList() const
+QList<QObject *> MusicList::originalMusicList() const
 {
-    return m_convertedMusicList;
+    return m_originalMusicList;
 }
 
-void MusicList::setConvertedMusicList(const QList<QObject *> &convertedMusicList)
+void MusicList::setOriginalMusicList(const QList<QObject *> &originalMusicList)
 {
-    m_convertedMusicList = convertedMusicList;
+    m_originalMusicList = originalMusicList;
 }
 
 QVariant MusicList::inputList() const
 {
-    return QVariant::fromValue(m_convertedMusicList);
+    if(MusicController::getInstance()->isSortMode() && m_sortedMusicList.size() >=1)
+        return QVariant::fromValue(m_sortedMusicList);
+    else
+        return QVariant::fromValue(m_originalMusicList);
 }
 
 void MusicList::setInputList(const QVariant &inputList)
@@ -48,10 +52,10 @@ void MusicList::setInputList(const QVariant &inputList)
 void MusicList::clearList()
 {
     //make list empty
-    for(auto* music : m_convertedMusicList){
+    for(auto* music : m_originalMusicList){
         delete music;
     }
-    m_convertedMusicList.clear();
+    m_originalMusicList.clear();
 }
 
 void MusicList::signalingListChanged()
@@ -61,7 +65,7 @@ void MusicList::signalingListChanged()
 
 int MusicList::size() const
 {
-    return m_convertedMusicList.size();
+    return m_originalMusicList.size();
 }
 
 void MusicList::setSize(int size)
@@ -71,5 +75,15 @@ void MusicList::setSize(int size)
 
     m_size = size;
     emit sizeChanged();
+}
+
+QList<QObject *> MusicList::sortedMusicList() const
+{
+    return m_sortedMusicList;
+}
+
+void MusicList::setSortedMusicList(const QList<QObject *> &sortedMusicList)
+{
+    m_sortedMusicList = sortedMusicList;
 }
 

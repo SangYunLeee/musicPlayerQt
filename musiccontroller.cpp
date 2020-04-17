@@ -66,7 +66,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
         musicList()->clearList();
         QList<QObject*> emptyList;
-        musicList()->setConvertedMusicList(emptyList);
+        musicList()->setOriginalMusicList(emptyList);
         emit musicList()->inputListChanged();
         return "None Files ";
     }
@@ -102,7 +102,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
         qDebug() << "artist: " << artist;
         qDebug() << "title : " << title;
     }
-    musicList()->setConvertedMusicList(list);
+    musicList()->setOriginalMusicList(list);
     emit musicList()->inputListChanged();
     emit musicList()->sizeChanged();
 
@@ -150,13 +150,13 @@ void MusicController::changedListIndex(const int &index)
 {
     //index over check
     qDebug() << "index: " << index;
-    if(index < 0 || index >= m_musicList->convertedMusicList().size())
+    if(index < 0 || index >= m_musicList->originalMusicList().size())
     {
         qDebug() << Q_FUNC_INFO << "index over";
         return;
     }
     //current Music Change
-    Music* currentMusic = dynamic_cast<Music*>(m_musicList->convertedMusicList().at(index));
+    Music* currentMusic = dynamic_cast<Music*>(m_musicList->originalMusicList().at(index));
     QString title = currentMusic->titles() != QStringLiteral("") ?
                 currentMusic->titles() : QStringLiteral("곡 제목 없당");
     m_currentMusic->setTitles(title);
@@ -172,7 +172,19 @@ void MusicController::changedListIndex(const int &index)
 
 void MusicController::changedSearchText(const QString& searchText)
 {
+    m_bSortMode = searchText.isEmpty() ? false : true;
+
+    if(m_bSortMode)
+    {
+
+    }
+
     qDebug() << "Text Changed : " <<searchText;
+}
+
+bool MusicController::isSortMode() const
+{
+    return m_bSortMode;
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)

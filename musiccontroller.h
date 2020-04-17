@@ -26,6 +26,8 @@ public:
 
     void setCurrentMusic(Music *currentMusic);
 
+    bool isSortMode() const;
+
 private:
     QString loadMusicList(const QUrl &ListUrl);
 
@@ -57,7 +59,7 @@ private:
     QObject* m_qml;
 
     //sort Mode
-    bool bSortMode;
+    bool m_bSortMode;
 
     static MusicController* instance;
 };
