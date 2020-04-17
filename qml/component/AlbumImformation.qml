@@ -10,7 +10,7 @@ MyColumn {
 
     Text{   //
         id: titleId
-        width: 180
+        width: 195
 
         text: cppCurrentMusic.titles;
         color: "Tomato"
@@ -20,6 +20,14 @@ MyColumn {
         horizontalAlignment: Text.AlignHCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
+        onTextChanged: {
+            font.pointSize = 15;
+            while(implicitWidth > width)
+            {
+                print(implicitWidth, " ", width);
+                font.pointSize--;
+            }
+        }
     }
     Text{
         id: artistId

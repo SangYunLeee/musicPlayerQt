@@ -10,12 +10,22 @@
 static QString imageFilePath = "imageForMusic";
 static QString pathPrefix = "file:///";
 
+MusicController* MusicController::instance = nullptr;
 
 MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
   ,m_currentMusic(new Music(QStringLiteral("가수우"),QStringLiteral("곡 이르음"),"url"))
   ,m_url("Null")
 {
+}
+
+MusicController *MusicController::getInstance()
+{
+    if(instance == nullptr)
+    {
+        instance = new MusicController();
+    }
+    return instance;
 }
 
 MusicController::~MusicController()
@@ -70,13 +80,22 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
 
     //insert musicList
     QList<QObject *> list;
-    for(QString url : list_str_url){
-
+    for(QString& url : list_str_url){
         TagLib::FileName fn(url.toStdWString().c_str());
         TagLib::FileRef ref(fn);
 
         QString artist = ref.tag()->artist().toCString(true);
         QString title = ref.tag()->title().toCString(true);
+
+        if(title == "")
+        {
+            //get file name...
+            title = fn.toString().toCString(true);
+            QStringList foo = title.split("/");
+            title = foo.last();
+            foo = title.split(".");
+            title = foo.first();
+        }
 
         list.append(new Music(artist,title,url));
 

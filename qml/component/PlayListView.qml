@@ -60,7 +60,13 @@ Item {
             //slot for ScrollBar
             function moveUpDown(cotentforY) {
                 if (cotentforY < 0)
-                    contentY = -cotentforY
+                {
+                    print("contentForY:", cotentforY);
+                    print("result:", listViewId.contentHeight-listViewId.height);
+                    if(-cotentforY >= (listViewId.contentHeight-listViewId.height)-10)
+                        contentY = listViewId.contentHeight-listViewId.height - 10
+                    else contentY = -cotentforY
+                }
                 else
                     contentY = 0
             }
@@ -69,9 +75,6 @@ Item {
             }
             Component.onCompleted: {
                 changeListBar.connect(listscb.changeBarY)
-            }
-            onModelChanged: {
-                listscb.setup();
             }
             onCurrentIndexChanged: {
                 cppMusicController.changedListIndex(currentIndex)

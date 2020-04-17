@@ -20,14 +20,6 @@ Item {
         }
     }
 
-    function setup(){
-//        scrollBar.height = targetForScrBar.height
-        if (scrollBar.height > targetForScrBar.contentHeight) {
-//            scrollStick.height = scrollBar.height
-        } else {
-        }
-   }
-
     Rectangle {
         id: scroller
         color: "blue"
@@ -47,6 +39,7 @@ Item {
         id: scrollStick
         width: scroller.width
         height: cppMusicList.size < 1 ? 0 : (scrollBar.height / targetForScrBar.contentHeight) * scrollBar.height
+        visible: cppMusicList.size > 13
 
         color: Define.prettyGreen
         opacity: 0.8
@@ -64,9 +57,5 @@ Item {
             drag.minimumY: scroller.y
             drag.maximumY: scroller.height - height
         }
-    }
-    Component.onCompleted: {
-        //making scrollBlock prefered size
-        setup();
     }
 }

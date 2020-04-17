@@ -27,6 +27,7 @@ release/*
 *rc
 object_script.musicPlayer.Release
 musicPlayer.pro.user
+
 # A listing of all the files included in the project
 *.files
 

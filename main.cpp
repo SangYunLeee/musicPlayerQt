@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     QIcon icon(":/icon.png");
     app.setWindowIcon(icon);
 
-    MusicController* musicController = new MusicController();
+    MusicController* musicController = MusicController::getInstance();
     engine.rootContext()->setContextProperty("cppMusicController", musicController);
     engine.rootContext()->setContextProperty("cppMusicList", musicController->musicList());
     engine.rootContext()->setContextProperty("cppCurrentMusic", musicController->currentMusic());

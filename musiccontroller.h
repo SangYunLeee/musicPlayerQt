@@ -6,11 +6,17 @@
 
 
 
-class MusicController : public QObject
+class MusicController final : public QObject
 {
     Q_OBJECT
-public:
+
+private:
     explicit MusicController(QObject *parent = nullptr);
+
+public:
+    static MusicController* getInstance();
+
+public:
     ~MusicController();
     void loadQml(QObject* qml);
 
@@ -43,10 +49,17 @@ private:
 
     // folder route
     QString m_url;
+
     // image for current Music
     QImage m_image_main;
+
     //qml object
     QObject* m_qml;
+
+    //sort Mode
+    bool bSortMode;
+
+    static MusicController* instance;
 };
 
 #endif // MUSICCONTROLLER_H
