@@ -77,8 +77,21 @@ Item {
                 changeListBar.connect(listscb.changeBarY)
             }
             onCurrentIndexChanged: {
-                cppMusicController.changedListIndex(currentIndex)
-                playMusic.play();
+                print("currentIndexChanged!!:", currentIndex);
+
+            }
+            onModelChanged: {
+                if(cppCurrentMusic.url == "url")
+                {
+                    cppMusicController.changedListIndex(0);
+                    playMusic.play();
+                }
+
+                if(currentIndex != 0)
+                {
+                    print("onModelChanged");
+                    currentIndex = 0;
+                }
             }
         }
         SearchTextInput{
@@ -122,6 +135,9 @@ Item {
                 onClicked: {
                     listViewId.currentIndex = index;
                     rootId.focus = true;
+                    listViewId.currentIndexChanged();
+                    cppMusicController.changedListIndex(index);
+                    playMusic.play();
                 }
                 Rectangle{
                     visible: listViewId.currentIndex == index ? true : false;

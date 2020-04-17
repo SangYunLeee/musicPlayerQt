@@ -26,22 +26,24 @@ void MusicList::setUrl(const QString &url)
     m_url = url;
 }
 
-QList<QObject *> MusicList::originalMusicList() const
+QList<Music *> &MusicList::originalMusicList() const
+{
+    return const_cast<QList<Music *>&>(m_originalMusicList);
+}
+
+QList<Music *> &MusicList::originalMusicList()
 {
     return m_originalMusicList;
 }
 
-void MusicList::setOriginalMusicList(const QList<QObject *> &originalMusicList)
+void MusicList::setOriginalMusicList(const QList<Music *> &originalMusicList)
 {
     m_originalMusicList = originalMusicList;
 }
 
-QVariant MusicList::inputList() const
+QVariant MusicList::inputList()
 {
-    if(MusicController::getInstance()->isSortMode() && m_sortedMusicList.size() >=1)
-        return QVariant::fromValue(m_sortedMusicList);
-    else
-        return QVariant::fromValue(m_originalMusicList);
+    return QVariant::fromValue(selectedMusicList());
 }
 
 void MusicList::setInputList(const QVariant &inputList)
@@ -65,7 +67,7 @@ void MusicList::signalingListChanged()
 
 int MusicList::size() const
 {
-    return m_originalMusicList.size();
+    return selectedMusicList().size();
 }
 
 void MusicList::setSize(int size)
@@ -77,13 +79,38 @@ void MusicList::setSize(int size)
     emit sizeChanged();
 }
 
-QList<QObject *> MusicList::sortedMusicList() const
+QList<Music *> &MusicList::sortedMusicList() const
+{
+    return const_cast<QList<Music *>&>(m_sortedMusicList);
+}
+
+QList<Music *> &MusicList::sortedMusicList()
 {
     return m_sortedMusicList;
 }
 
-void MusicList::setSortedMusicList(const QList<QObject *> &sortedMusicList)
+void MusicList::setSortedMusicList(const QList<Music *> &sortedMusicList)
 {
     m_sortedMusicList = sortedMusicList;
 }
 
+QList<Music *> &MusicList::selectedMusicList()
+{
+    if(MusicController::getInstance()->isSortMode()){
+        return sortedMusicList();
+    }
+    else{
+        return originalMusicList();
+    }
+}
+
+
+QList<Music *> &MusicList::selectedMusicList() const
+{
+    if(MusicController::getInstance()->isSortMode()){
+        return sortedMusicList();
+    }
+    else{
+        return originalMusicList();
+    }
+}

@@ -65,7 +65,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     else{
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
         musicList()->clearList();
-        QList<QObject*> emptyList;
+        QList<Music*> emptyList;
         musicList()->setOriginalMusicList(emptyList);
         emit musicList()->inputListChanged();
         return "None Files ";
@@ -79,7 +79,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     musicList()->clearList();
 
     //insert musicList
-    QList<QObject *> list;
+    QList<Music *> list;
     for(QString& url : list_str_url){
         TagLib::FileName fn(url.toStdWString().c_str());
         TagLib::FileRef ref(fn);
@@ -150,13 +150,13 @@ void MusicController::changedListIndex(const int &index)
 {
     //index over check
     qDebug() << "index: " << index;
-    if(index < 0 || index >= m_musicList->originalMusicList().size())
+    if(index < 0 || index >= m_musicList->selectedMusicList().size())
     {
         qDebug() << Q_FUNC_INFO << "index over";
         return;
     }
     //current Music Change
-    Music* currentMusic = dynamic_cast<Music*>(m_musicList->originalMusicList().at(index));
+    Music* currentMusic = dynamic_cast<Music*>(m_musicList->selectedMusicList().at(index));
     QString title = currentMusic->titles() != QStringLiteral("") ?
                 currentMusic->titles() : QStringLiteral("곡 제목 없당");
     m_currentMusic->setTitles(title);
@@ -176,9 +176,19 @@ void MusicController::changedSearchText(const QString& searchText)
 
     if(m_bSortMode)
     {
+        m_musicList->sortedMusicList().clear();
 
+        for(Music* originMusic : m_musicList->originalMusicList())
+        {
+            if(originMusic->titles().contains(searchText,Qt::CaseInsensitive))
+            {
+                m_musicList->sortedMusicList().push_back(originMusic);
+            }
+        }
     }
 
+    emit musicList()->inputListChanged();
+    emit musicList()->sizeChanged();
     qDebug() << "Text Changed : " <<searchText;
 }
 
