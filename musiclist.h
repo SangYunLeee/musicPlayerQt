@@ -16,7 +16,7 @@ class MusicList : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
-    Q_PROPERTY(QList<Music*> originalMusicList READ originalMusicList WRITE setOriginalMusicList NOTIFY originalMusicListChanged)
+    Q_PROPERTY(QList<QObject*> originalMusicList READ originalMusicList WRITE setOriginalMusicList NOTIFY originalMusicListChanged)
     Q_PROPERTY(QVariant inputList READ inputList WRITE setInputList NOTIFY inputListChanged)
     Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
 
@@ -26,9 +26,9 @@ public:
     QString url() const;
     void setUrl(const QString &url);
 
-    QList<Music *>& originalMusicList() const;
-    QList<Music *>& originalMusicList();
-    void setOriginalMusicList(const QList<Music *> &originalMusicList);
+    QList<QObject *>& originalMusicList() const;
+    QList<QObject *>& originalMusicList();
+    void setOriginalMusicList(const QList<QObject *> &originalMusicList);
 
     QVariant inputList();
     void setInputList(const QVariant &inputList);
@@ -40,12 +40,12 @@ public:
 
     int size() const;
 
-    QList<Music *>& sortedMusicList() const;
-    QList<Music *>& sortedMusicList();
-    void setSortedMusicList(const QList<Music *> &sortedMusicList);
+    QList<QObject *>& sortedMusicList() const;
+    QList<QObject *>& sortedMusicList();
+    void setSortedMusicList(const QList<QObject *> &sortedMusicList);
 
-    QList<Music *>& selectedMusicList();
-    QList<Music *>& selectedMusicList() const;
+    QList<QObject *>& selectedMusicList();
+    QList<QObject *>& selectedMusicList() const;
 
 public slots:
     void setSize(int size);
@@ -61,8 +61,8 @@ signals:
 
 private:
     QString m_url;
-    QList<Music*> m_originalMusicList;
-    QList<Music*> m_sortedMusicList;
+    QList<QObject*> m_originalMusicList;
+    QList<QObject*> m_sortedMusicList;
     QVariant m_inputList;
     QMediaPlayer mediaPlayer;
     QMediaPlaylist m_playList;

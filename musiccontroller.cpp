@@ -16,6 +16,7 @@ MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_musicList(new MusicList())
   ,m_currentMusic(new Music(QStringLiteral("가수우"),QStringLiteral("곡 이르음"),"url"))
   ,m_url("Null")
+  ,m_bSortMode(false)
 {
 }
 
@@ -65,7 +66,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     else{
         qDebug() << Q_FUNC_INFO << "there is no mp3 files";
         musicList()->clearList();
-        QList<Music*> emptyList;
+        QList<QObject*> emptyList;
         musicList()->setOriginalMusicList(emptyList);
         emit musicList()->inputListChanged();
         return "None Files ";
@@ -79,7 +80,7 @@ QString MusicController::loadMusicList(const QUrl &url_musicList)
     musicList()->clearList();
 
     //insert musicList
-    QList<Music *> list;
+    QList<QObject *> list;
     for(QString& url : list_str_url){
         TagLib::FileName fn(url.toStdWString().c_str());
         TagLib::FileRef ref(fn);
@@ -178,9 +179,10 @@ void MusicController::changedSearchText(const QString& searchText)
     {
         m_musicList->sortedMusicList().clear();
 
-        for(Music* originMusic : m_musicList->originalMusicList())
+        for(QObject* originMusic : m_musicList->originalMusicList())
         {
-            if(originMusic->titles().contains(searchText,Qt::CaseInsensitive))
+            auto music =  dynamic_cast<Music*>(originMusic);
+            if(music->titles().contains(searchText,Qt::CaseInsensitive))
             {
                 m_musicList->sortedMusicList().push_back(originMusic);
             }

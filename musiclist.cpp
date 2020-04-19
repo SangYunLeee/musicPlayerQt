@@ -11,7 +11,6 @@
 static QString imageFilePath = "imageForMusic";
 
 MusicList::MusicList(QObject *parent) : QObject(parent)
-
 {
 
 }
@@ -26,17 +25,17 @@ void MusicList::setUrl(const QString &url)
     m_url = url;
 }
 
-QList<Music *> &MusicList::originalMusicList() const
+QList<QObject *> &MusicList::originalMusicList() const
 {
-    return const_cast<QList<Music *>&>(m_originalMusicList);
+    return const_cast<QList<QObject *>&>(m_originalMusicList);
 }
 
-QList<Music *> &MusicList::originalMusicList()
+QList<QObject *> &MusicList::originalMusicList()
 {
     return m_originalMusicList;
 }
 
-void MusicList::setOriginalMusicList(const QList<Music *> &originalMusicList)
+void MusicList::setOriginalMusicList(const QList<QObject *> &originalMusicList)
 {
     m_originalMusicList = originalMusicList;
 }
@@ -79,22 +78,22 @@ void MusicList::setSize(int size)
     emit sizeChanged();
 }
 
-QList<Music *> &MusicList::sortedMusicList() const
+QList<QObject *> &MusicList::sortedMusicList() const
 {
-    return const_cast<QList<Music *>&>(m_sortedMusicList);
+    return const_cast<QList<QObject *>&>(m_sortedMusicList);
 }
 
-QList<Music *> &MusicList::sortedMusicList()
+QList<QObject *> &MusicList::sortedMusicList()
 {
     return m_sortedMusicList;
 }
 
-void MusicList::setSortedMusicList(const QList<Music *> &sortedMusicList)
+void MusicList::setSortedMusicList(const QList<QObject *> &sortedMusicList)
 {
     m_sortedMusicList = sortedMusicList;
 }
 
-QList<Music *> &MusicList::selectedMusicList()
+QList<QObject *> &MusicList::selectedMusicList()
 {
     if(MusicController::getInstance()->isSortMode()){
         return sortedMusicList();
@@ -105,7 +104,7 @@ QList<Music *> &MusicList::selectedMusicList()
 }
 
 
-QList<Music *> &MusicList::selectedMusicList() const
+QList<QObject *> &MusicList::selectedMusicList() const
 {
     if(MusicController::getInstance()->isSortMode()){
         return sortedMusicList();
