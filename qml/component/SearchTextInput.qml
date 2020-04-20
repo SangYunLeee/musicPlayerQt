@@ -26,4 +26,6 @@ MyItem {
                         color: id_textField.focus ? Define.YELLOW : "transparent"
                     }
     }
+
+    Component.onCompleted: sideLines.topLine.height = 1
 }

@@ -83,7 +83,7 @@ Item {
             onModelChanged: {
                 if(cppCurrentMusic.url == "url")
                 {
-                    cppMusicController.changedListIndex(0);
+                    cppMusicController.changeCurrentMusicIndex(0);
                     playMusic.play();
                 }
 
@@ -136,7 +136,7 @@ Item {
                     listViewId.currentIndex = index;
                     rootId.focus = true;
                     listViewId.currentIndexChanged();
-                    cppMusicController.changedListIndex(index);
+                    cppMusicController.changeCurrentMusicIndex(index);
                     playMusic.play();
                 }
                 Rectangle{

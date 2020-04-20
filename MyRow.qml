@@ -1,4 +1,5 @@
 import QtQuick 2.11
+import "qrc:/define.js" as Define
 
 Item {
     id: rootId
@@ -17,7 +18,6 @@ Item {
         z: -1
         id: backgroundId
         anchors.fill: rootId
-        color: "Khaki"
-
+        color: Define.ivory
     }
 }

@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
     QIcon icon(":/icon.png");
     app.setWindowIcon(icon);
 
+    qmlRegisterUncreatableType<MusicController>("CppEnums",1,0,"Enums","Enum is not a type");
+
+
+
     MusicController* musicController = MusicController::getInstance();
     engine.rootContext()->setContextProperty("cppMusicController", musicController);
     engine.rootContext()->setContextProperty("cppMusicList", musicController->musicList());

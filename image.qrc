@@ -5,5 +5,9 @@
         <file alias="open.svg">qml/image/open.svg</file>
         <file alias="back.svg">qml/image/back.svg</file>
         <file alias="icon.png">qml/image/icon.png</file>
+        <file alias="repeat_all.svg">qml/image/repeat/repeat_all.svg</file>
+        <file alias="repeat_no_1.svg">qml/image/repeat/repeat_no_1.svg</file>
+        <file alias="repeat_one_1.svg">qml/image/repeat/repeat_one_1.svg</file>
+        <file></file>
     </qresource>
 </RCC>

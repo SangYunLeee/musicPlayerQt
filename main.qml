@@ -3,6 +3,7 @@ import QtQuick.Window 2.11
 import QtQuick.Layouts 1.11
 import QtQuick.Controls 1.4
 import QtMultimedia 5.12
+import CppEnums 1.0
 
 
 import "define.js" as Define
@@ -70,7 +71,7 @@ Window {
         onAccepted: {
             path =  folderDialogId.folder.toString() + "/"
             cppMusicController.loadedFolderRoute(folder);
-            print(path);
+            print("QML:FolderDialog onAccepted: ",path);
         }
     }
 
@@ -86,12 +87,47 @@ Window {
             print("playMusic.status: " + status);
             if(status == 7 ){  // 7 == "EndOfMedia"
                 print("sourc has ended");
-                if(listViewId.listId.currentIndex + 1 < listViewId.listId.count)
-                    listViewId.listId.currentIndex++;
-                else{
-                    listViewId.listId.currentIndex = 0;
+                switch(cppMusicController.repeatType)
+                {
+                    case Enums.REPEATE_ALL:
+                        nextPlay();
+                        break;
+                    case Enums.REPEATE_NO:
+                        break;
+                    case Enums.REPEATE_ONE:
+                        play();
+                        break;
                 }
             }
+        }
+        function nextPlay(){
+            if(listViewId.listId.currentIndex + 1 < listViewId.listId.count)
+            {
+                listViewId.listId.incrementCurrentIndex();
+                playCurrentIndex();
+            }
+            else{
+                listViewId.listId.currentIndex = 0;
+                playCurrentIndex();
+            }
+        }
+        function previousPlay(){
+            if(listViewId.listId.currentIndex>=1){
+                listViewId.listId.decrementCurrentIndex();
+                playCurrentIndex();
+            }
+            else{
+                listViewId.listId.currentIndex = listViewId.listId.count-1
+                playCurrentIndex();
+            }
+        }
+        function playByIndex(index){
+            cppMusicController.changeCurrentMusicIndex(index);
+            play();
+        }
+        function playCurrentIndex(){
+            cppMusicController.changeCurrentMusicIndex(listViewId.listId.currentIndex);
+            play();
         }
     }
 }

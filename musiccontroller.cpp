@@ -17,6 +17,7 @@ MusicController::MusicController(QObject *parent) : QObject(parent)
   ,m_currentMusic(new Music(QStringLiteral("가수우"),QStringLiteral("곡 이르음"),"url"))
   ,m_url("Null")
   ,m_bSortMode(false)
+  ,m_repeatType(REPEATE_ALL)
 {
 }
 
@@ -147,7 +148,7 @@ QString MusicController::createImageFile(const QString &url)
 
 }
 
-void MusicController::changedListIndex(const int &index)
+void MusicController::changeCurrentMusicIndex(const int &index)
 {
     //index over check
     qDebug() << "index: " << index;
@@ -194,9 +195,23 @@ void MusicController::changedSearchText(const QString& searchText)
     qDebug() << "Text Changed : " <<searchText;
 }
 
+void MusicController::setRepeatType(MusicController::E_REPEAT_TYPE repeatType)
+{
+    if (m_repeatType == repeatType)
+        return;
+
+    m_repeatType = repeatType;
+    emit repeatTypeChanged(m_repeatType);
+}
+
 bool MusicController::isSortMode() const
 {
     return m_bSortMode;
+}
+
+MusicController::E_REPEAT_TYPE MusicController::repeatType() const
+{
+    return m_repeatType;
 }
 
 void MusicController::setCurrentMusic(Music *currentMusic)
