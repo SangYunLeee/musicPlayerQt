@@ -6,8 +6,9 @@ import QtMultimedia 5.12
 import CppEnums 1.0
 
 
-import "define.js" as Define
 import "qrc:/component/qml/component"
+import "qrc:/basicComponent/define.js" as Define
+import "qrc:/basicComponent"
 
 //import io.qt.examples.backend 1.0
 Window {

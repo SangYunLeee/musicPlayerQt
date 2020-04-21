@@ -1,8 +1,9 @@
-import QtQuick 2.0
-import "qrc:/define.js" as Define
-import "qrc:/"
+import QtQuick 2.11
 import QtMultimedia 5.8
 import CppEnums 1.0
+import "qrc:/../../../"
+import "qrc:/basicComponent/define.js" as Define
+import "qrc:/basicComponent"
 
 MyColumn {
     id: playerColumnId

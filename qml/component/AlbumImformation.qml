@@ -1,5 +1,6 @@
-import QtQuick 2.0
-import "qrc:/"
+import QtQuick 2.11
+import "qrc:/../../../"
+import "qrc:/basicComponent"
 
 MyColumn {
     height: parent.height

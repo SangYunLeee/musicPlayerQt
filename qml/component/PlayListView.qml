@@ -1,6 +1,7 @@
 import QtQuick 2.11
-import "qrc:/define.js" as Define
-import "qrc:/"
+import "qrc:/../../../"
+import "qrc:/basicComponent/define.js" as Define
+import "qrc:/basicComponent"
 Item {
     id: rootId
     width: 100

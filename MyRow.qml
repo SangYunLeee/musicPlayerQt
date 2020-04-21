@@ -1,5 +1,6 @@
 import QtQuick 2.11
-import "qrc:/define.js" as Define
+
+import "define.js" as Define
 
 Item {
     id: rootId

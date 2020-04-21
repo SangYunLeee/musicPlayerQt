@@ -1,7 +1,8 @@
 import QtQuick 2.11
 import QtQuick.Controls 2.5
-import "qrc:/"
-import "qrc:/define.js" as Define
+import "qrc:/../../../"
+import "qrc:/basicComponent/define.js" as Define
+import "qrc:/basicComponent"
 
 MyItem {
     color : Define.lightGreen
