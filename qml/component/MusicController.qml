@@ -133,16 +133,12 @@ MyRow{
             sideLines.leftLine.width = 1
         }
     }
-    MyItem {
+    VolumeSlider {
         id: id_soundBar
-        width: 0
+        width: 30
         height: parent.height
 
         color: Define.ivory
         sideLines.visible: true
-
-        Component.onCompleted:{
-            sideLines.leftLine.width = 1
-        }
     }
 }

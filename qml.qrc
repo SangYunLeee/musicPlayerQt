@@ -10,6 +10,7 @@
         <file>FolderDialog.qml</file>
         <file>define.js</file>
         <file>MyItem.qml</file>
+        <file>SliderBarVertical.qml</file>
     </qresource>
     <qresource prefix="/component">
         <file>qml/component/AlbumImformationDetail.qml</file>
@@ -20,5 +21,6 @@
         <file>qml/component/SearchTextInput.qml</file>
         <file>qml/component/MusicController.qml</file>
         <file>qml/component/AlbumInfo.qml</file>
+        <file>qml/component/VolumeSlider.qml</file>
     </qresource>
 </RCC>

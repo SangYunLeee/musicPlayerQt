@@ -14,9 +14,6 @@ Item {
     property alias mouseArea: mouseAreaId
     property alias rotation: overlayId.rotation
 
-    anchors.verticalCenter: parent.verticalCenter
-
-
     //background
     Rectangle {
         LayoutMirroring.enabled: true
