@@ -11,7 +11,10 @@ MyItem {
     color: Define.ivory
     sideLines.visible: true
 
+    property real volume : id_slider.gauge
+
     SliderBarVertical{
+        id: id_slider
         width: 15
         height: 80
         anchors.horizontalCenter: parent.horizontalCenter
