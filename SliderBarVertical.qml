@@ -10,7 +10,7 @@ Item {
     property alias fiilbar: fillBar
 
     //gauge
-    property real gauge: 0.5
+    property real gauge: 1
 
     //main stick
     Rectangle {

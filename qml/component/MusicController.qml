@@ -140,9 +140,5 @@ MyRow{
 
         color: Define.ivory
         sideLines.visible: true
-        onVolumeChanged: {
-            print("volume: ",volume);
-            playMusic.volume = volume
-        }
     }
 }

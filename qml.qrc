@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+    </qresource>
+    <qresource prefix="/basicComponent">
+        <file>PrograssBar.qml</file>
+        <file>MyRow.qml</file>
+        <file>MyColumn.qml</file>
+        <file>MyButton.qml</file>
+        <file>FolderDialog.qml</file>
+        <file>define.js</file>
+        <file>MyItem.qml</file>
+        <file>SliderBarVertical.qml</file>
+    </qresource>
+    <qresource prefix="/component">
+        <file>qml/component/AlbumImformationDetail.qml</file>
+        <file>qml/component/TimerPrograssBar.qml</file>
+        <file>qml/component/ScrollBarListView.qml</file>
+        <file>qml/component/PlayListView.qml</file>
+        <file>qml/component/Player.qml</file>
+        <file>qml/component/SearchTextInput.qml</file>
+        <file>qml/component/MusicController.qml</file>
+        <file>qml/component/AlbumInfo.qml</file>
+        <file>qml/component/VolumeSlider.qml</file>
+    </qresource>
+</RCC>
