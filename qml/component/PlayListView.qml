@@ -50,6 +50,9 @@ Item {
                 width: 20
                 height: 20
             }
+
+            onChangeListBar: print("onChangeListBar");
+
             MouseArea {
                 anchors.fill: parent
                 z: -1
@@ -58,21 +61,8 @@ Item {
                     rootId.focus = true
                 }
             }
-            //slot for ScrollBar
-            function moveUpDown(cotentforY) {
-                if (cotentforY < 0)
-                {
-                    print("contentForY:", cotentforY);
-                    print("result:", listViewId.contentHeight-listViewId.height);
-                    if(-cotentforY >= (listViewId.contentHeight-listViewId.height)-10)
-                        contentY = listViewId.contentHeight-listViewId.height - 10
-                    else contentY = -cotentforY
-                }
-                else
-                    contentY = 0
-            }
             onContentYChanged: {
-                changeListBar(contentY);
+                changeListBar(contentY - originY);
             }
             Component.onCompleted: {
                 changeListBar.connect(listscb.changeBarY)
@@ -108,9 +98,6 @@ Item {
         anchors.right: colId.right;
         y: listViewId.y
         targetForScrBar: listViewId
-        Component.onCompleted: {
-            changeContentY.connect(listViewId.moveUpDown);
-        }
     }
 
     Component {

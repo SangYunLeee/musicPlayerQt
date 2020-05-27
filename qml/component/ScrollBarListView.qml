@@ -48,7 +48,26 @@ Item {
         radius: 3
         onYChanged: {
             if (draggingId.drag.active)
-                changeContentY(-scrollStick.y * dragRatio)
+            {
+                var cotentforY = scrollStick.y * dragRatio + listViewId.originY;
+
+                if (cotentforY > listViewId.originY)
+                {
+                    print("contentForY:", cotentforY);
+                    print("originY", listViewId.originY);
+                    print("listViewId.contentY: ", listViewId.contentY);
+                    print("result:", listViewId.contentHeight-listViewId.height);
+                    //over height
+                    if(cotentforY>= (listViewId.contentHeight-listViewId.height) + listViewId.originY )
+                    {
+                        listViewId.positionViewAtEnd();
+                    }
+                    else
+                        listViewId.contentY = cotentforY
+                }
+                else
+                    listViewId.contentY = listViewId.originY
+            }
         }
 
         MouseArea {
