@@ -22,9 +22,8 @@
 *Makefile*
 *.opt
 *moc*
-*Release*
 release/*
-*rc
+*.rc
 object_script.musicPlayer.Release
 musicPlayer.pro.user
 

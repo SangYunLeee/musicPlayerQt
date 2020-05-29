@@ -40,7 +40,7 @@ Item {
         id: scrollStick
         width: scroller.width
         height: cppMusicList.size < 1 ? 0 : targetForScrBar.visibleArea.heightRatio * targetForScrBar.height
-        //(scrollBar.height / targetForScrBar.contentHeight) * scrollBar.height
+
         visible: cppMusicList.size > 13
 
         color: Define.prettyGreen
