@@ -47,12 +47,7 @@ MyRow{
                 height:  37
                 source: start? "/pause.svg" : "/start.svg"
                 onClicked:{
-                    if(start){
-                        playMusic.pause();
-                    }
-                    else {
-                        playMusic.play();
-                    }
+                    playMusic.playOrPause();
                 }
             }
 

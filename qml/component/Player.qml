@@ -37,4 +37,5 @@ MyColumn {
         height: parent.height - upperId.height - middleId.height
         width: parent.width
     }
+    Keys.onPressed: { if (event.key == Qt.Key_Enter) state = 'ShowDetails'; }
 }

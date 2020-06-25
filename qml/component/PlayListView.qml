@@ -58,7 +58,7 @@ Item {
                 z: -1
                 onClicked: {
                     console.log("listViewId pressed")
-                    rootId.focus = true
+                    keyController.focus = true
                 }
             }
             onContentYChanged: {
@@ -126,6 +126,7 @@ Item {
                     listViewId.currentIndexChanged();
                     cppMusicController.changeCurrentMusicIndex(index);
                     playMusic.play();
+                    keyController.focus = true;
                 }
                 Rectangle{
                     visible: listViewId.currentIndex == index ? true : false;

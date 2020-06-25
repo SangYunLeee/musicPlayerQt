@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.11
 import QtQuick.Controls 1.4
 import QtMultimedia 5.12
 import CppEnums 1.0
+import Qt.labs.settings 1.1
 
 
 import "qrc:/component/qml/component"
@@ -12,6 +13,15 @@ import "qrc:/basicComponent"
 
 //import io.qt.examples.backend 1.0
 Window {
+
+    id: rootId
+    objectName: "rootIdd"
+    visible: true
+    width: 800
+    height: 480
+    x: Screen.width / 2 - width / 2
+    y: Screen.height / 2 - height / 2
+
     property string path: "" //"file:///home/sori/Desktop/qtProject/musicPlayer/image/"
     property string pathPrefix: "file:///"
 
@@ -21,21 +31,24 @@ Window {
     minimumWidth: width
 
     MouseArea {
+        id: keyController
+        enum Shape {
+            None
+        }
         anchors.fill: parent
 
         onClicked: {
             console.log("base mouse area pressed")
-            focus = true
+            keyController.focus = true;
+        }
+        Keys.onPressed:
+        {
+            print("Entered");
+            if (event.key === Qt.Key_Space)
+                playMusic.playOrPause();
         }
     }
 
-    id: rootId
-    objectName: "rootId"
-    visible: true
-    width: 800
-    height: 480
-    x: Screen.width / 2 - width / 2
-    y: Screen.height / 2 - height / 2
 
     //rootRow
     MyRow {
@@ -79,6 +92,7 @@ Window {
     MediaPlayer {
         id: playMusic
         source: pathPrefix + cppCurrentMusic.url
+        readonly property bool start: playbackState === MediaPlayer.PlayingState ? true : false
         notifyInterval: 100
         onDurationChanged: {
             playerColumnId.alias_middleId.currentTime = 0;
@@ -130,5 +144,18 @@ Window {
             cppMusicController.changeCurrentMusicIndex(listViewId.listId.currentIndex);
             play();
         }
+        function playOrPause(){
+            if(start){
+                playMusic.pause();
+            }
+            else {
+                playMusic.play();
+            }
+        }
     }
+
+    Keys.onPressed: { print("Entered Root"); }
+
+    Component.onCompleted: keyController.focus = true;
+
 }

@@ -2,6 +2,7 @@ import QtQuick 2.11
 import "qrc:/../../../"
 import "qrc:/basicComponent/define.js" as Define
 import "qrc:/basicComponent"
+import Qt.labs.settings 1.1
 
 Item {
     id: prograssBar
@@ -10,7 +11,7 @@ Item {
     property alias fiilbar: fillBar
 
     //gauge
-    property real gauge: 1
+    property real gauge: id_volumeSetting.volume;
 
     //main stick
     Rectangle {
@@ -66,5 +67,13 @@ Item {
         text: playMusic.position
         anchors.right: id_background.right
         anchors.leftMargin: 3
+    }
+
+
+    Settings{
+        id: id_volumeSetting
+        category: "volumeSetting"
+        property real volume : 0.5;
+        Component.onDestruction: id_volumeSetting.volume = prograssBar.gauge;
     }
 }

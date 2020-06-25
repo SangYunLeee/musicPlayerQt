@@ -33,6 +33,8 @@ LIBS += -LD:/boost_1_70_0/stage/lib/
 #DEPENDPATH += D:/Libraries/taglib
 
 SOURCES += \
+        coreapplication.cpp \
+        keylistener.cpp \
         main.cpp \
         music.cpp \
         musiccontroller.cpp \
@@ -57,6 +59,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    coreapplication.h \
+    keylistener.h \
     music.h \
     musiccontroller.h \
     musiclist.h \
