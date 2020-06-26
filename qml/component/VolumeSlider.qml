@@ -8,7 +8,7 @@ MyItem {
     width: 30
     height: parent.height
 
-    property real volume : 1 - Math.sin( Math.acos(id_slider.gauge) )
+    property real volume : (1 - Math.sin( Math.acos(id_slider.gauge) )) * 4/5 + id_slider.gauge * 1/5
 
     color: Define.ivory
     sideLines.visible: true

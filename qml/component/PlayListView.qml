@@ -50,9 +50,6 @@ Item {
                 width: 20
                 height: 20
             }
-
-            onChangeListBar: print("onChangeListBar");
-
             MouseArea {
                 anchors.fill: parent
                 z: -1
@@ -69,7 +66,6 @@ Item {
             }
             onCurrentIndexChanged: {
                 print("currentIndexChanged!!:", currentIndex);
-
             }
             onModelChanged: {
                 if(cppCurrentMusic.url == "url")

@@ -137,7 +137,6 @@ MyRow{
         sideLines.visible: true
 
         onVolumeChanged: {
-            print("volume: ",volume);
             playMusic.volume = volume
         }
     }

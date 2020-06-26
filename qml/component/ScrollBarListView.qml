@@ -53,10 +53,13 @@ Item {
 
                 if (cotentforY > listViewId.originY)
                 {
+                    /*
                     print("contentForY:", cotentforY);
                     print("originY", listViewId.originY);
                     print("listViewId.contentY: ", listViewId.contentY);
                     print("result:", listViewId.contentHeight-listViewId.height);
+                    */
+
                     //over height
                     if(cotentforY>= (listViewId.contentHeight-listViewId.height) + listViewId.originY )
                     {
